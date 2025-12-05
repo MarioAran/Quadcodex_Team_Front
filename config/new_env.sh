@@ -1,9 +1,9 @@
 #!/bin/bash
 # new.sh: inicializa el entorno y arranca Flask
-ENV_PATH="../app/.env"
+ENV_PATH="../.env"
 if [ ! -d "$ENV_PATH" ]; then
     echo "Creando entorno virtual en $ENV_PATH..."
-    python -m venv "$ENV_PATH"
+    python3 -m venv "$ENV_PATH"
 fi
 echo "Activando entorno virtual..."
 # Detectar si es Windows o Linux/Mac
@@ -17,4 +17,4 @@ echo "Instalando dependencias..."
 pip install --upgrade pip
 pip install -r requirements.txt
 
-streamlit run ../app/datos_personales.py
+streamlit run ../datos_personales.py
