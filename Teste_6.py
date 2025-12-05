@@ -91,6 +91,7 @@ def entrenar_modelo(force=False):
     df = pd.DataFrame({
     "Exercise_Name": gym["Title"],
     "muscles": gym["BodyPart"].apply(clean_muscles),
+    "Equipment": gym["Equipment"],        # <-- NUEVO
     "Level": gym["Level"] if "Level" in gym.columns else gym["Difficulty"]
     })
 
@@ -199,9 +200,42 @@ def recomendar_ejercicios(user_data, nivel_usuario="Beginner", ejercicios_a_reco
     # ================================
     # 5. RETORNAR MEJORES EJERCICIOS
     # ================================
-    return df.sort_values("final_score", ascending=False).head(ejercicios_a_recomendar)[[
+    grupos_objetivo = ["chest", "back", "legs", "shoulders", "biceps", "triceps", "glutes", "abs"]
+
+    seleccion_final = []
+    usados = set()
+
+    df_sorted = df.sort_values("final_score", ascending=False)
+
+    # Seleccionar 1 ejercicio por grupo muscular (si existe)
+    for g in grupos_objetivo:
+        cand = df_sorted[df_sorted["muscles"].apply(lambda x: g in x)]
+        if not cand.empty:
+            row = cand.iloc[0].to_dict()   # <-- ¡CONVERTIDO A DICT!
+            if row["id_ejercicio"] not in usados:
+                seleccion_final.append(row)
+                usados.add(row["id_ejercicio"])
+
+    # Completar si faltan ejercicios
+    if len(seleccion_final) < ejercicios_a_recomendar:
+        faltan = ejercicios_a_recomendar - len(seleccion_final)
+
+        extra = (
+            df_sorted[~df_sorted["id_ejercicio"].isin(usados)]
+            .head(faltan)
+            .apply(lambda r: r.to_dict(), axis=1)  # <-- ¡todos convertidos a dict!
+            .tolist()
+        )
+
+        seleccion_final.extend(extra)
+
+    # Convertir a DataFrame sin errores
+    seleccion_df = pd.DataFrame(seleccion_final)
+
+    return seleccion_df[[
         "Exercise_Name",
         "muscles",
+        "Equipment",      
         "Level",
         "rating_score",
         "final_score"
@@ -218,9 +252,9 @@ if __name__ == "__main__":
 
     user_data = {
         "genero": "male",
-        "edad": 28,
-        "peso": 100,
-        "altura": 178
+        "edad": 22,
+        "peso": 88,
+        "altura": 175
     }
 
     recomendaciones = recomendar_ejercicios(
