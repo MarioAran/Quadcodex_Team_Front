@@ -2,6 +2,21 @@ import streamlit as st
 
 st.set_page_config(page_title="Training Plan", layout="wide")
 
+hide_menu_style = """
+    <style>
+        [data-testid="stSidebar"] {display: none !important;}
+        [data-testid="stSidebarNav"] {display: none !important;}
+        section[data-testid="stSidebar"] {display: none !important;}
+        div[data-testid="expandedSidebar"] {display: none !important;}
+    </style>
+"""
+
+st.markdown(hide_menu_style, unsafe_allow_html=True)
+
+# ---------- Botón volver ----------
+if st.button("⬅ Back to Main Page"):
+    st.switch_page("datos_personales.py")
+
 # ---------- Datos ----------
 if "recomendaciones" not in st.session_state:
     st.error("❌ No data received. Please complete your profile first.")
@@ -12,9 +27,11 @@ user = data.get("user_data", {})
 recs = data.get("recomendaciones", [])
 
 st.title("🏋️‍♂️ Your Personalized Training Plan")
-st.markdown(f"**User:** {user.get('genero','')} | Age: {user.get('edad','')} | Height: {user.get('altura','')} cm | Weight: {user.get('peso','')} kg")
-st.markdown(f"**Level:** {data.get('nivel','')} | **Exercises Recommended:** {data.get('cantidad_recomendaciones',0)}")
 
+usuario = st.session_state["usuario"]
+st.markdown(f"**User:** {usuario.Nombre} {usuario.Apellido} | **Gender:** {usuario.Genero} | Age: {usuario.Edad} | Height: {usuario.Altura} cm | Weight: {usuario.Peso} kg")
+st.markdown(f"**Level:** {usuario.Nivel} | **Exercises Recommended:** {len(st.session_state.get('recomendaciones', {}).get('recomendaciones', []))}")
+    
 st.write("---")
 
 # ---------- Mostrar ejercicios en tarjetas ----------
@@ -29,12 +46,8 @@ for i, exercise in enumerate(recs):
         st.markdown(f"**Level:** {exercise['Level']}")
         st.markdown(f"**Equipment:** {exercise['Equipment']}")
     with cols[3]:
-        st.markdown(f"**Rating:** {exercise['rating_score']}/10")
+        st.markdown(f"**Rating:** {min(exercise['rating_score'], 10.0)}/10")
     with cols[4]:
         st.progress(min(exercise['final_score'],1.0))  # barra para final_score
 
     st.write("---")
-
-# ---------- Botón volver ----------
-if st.button("⬅ Back to Main Page"):
-    st.switch_page("app.py")

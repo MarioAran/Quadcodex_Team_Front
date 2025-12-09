@@ -5,6 +5,16 @@ from datetime import date
 
 st.set_page_config(page_title="AlgoFit", layout="centered")
 
+hide_menu_style = """
+    <style>
+        [data-testid="stSidebar"] {display: none !important;}
+        [data-testid="stSidebarNav"] {display: none !important;}
+        section[data-testid="stSidebar"] {display: none !important;}
+        div[data-testid="expandedSidebar"] {display: none !important;}
+    </style>
+"""
+st.markdown(hide_menu_style, unsafe_allow_html=True)
+
 class Usuario_datos:
     def __init__(self, nombre, apellido, edad, genero, altura, peso, objetivo, nivel):
         self.Nombre = nombre
@@ -64,6 +74,10 @@ class Gestor_Usuario:
 # ==========================
 #   INTERFAZ STREAMLIT
 # ==========================
+
+# ---------- Botón volver ----------
+if st.button("⬅ Back to Main Menu"):
+    st.switch_page("pages/training_recommend.py")
 
 st.title("Sign up and join our community!")
 st.markdown("Fill your personal information below.")
@@ -150,6 +164,7 @@ if enviar:
         st.session_state["usuario"] = usuario
 
         payload = {
+            "nombre": usuario.Nombre,
             "genero": usuario.Genero.lower(),
             "edad": usuario.Edad,
             "peso": usuario.Peso,
