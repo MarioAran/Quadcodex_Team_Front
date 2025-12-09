@@ -90,11 +90,20 @@ with st.form("perfil_gym_form"):
     col1, col2 = st.columns(2)
 
     with col1:
-        nombre_completo = st.text_input("Full name")
-        genero = st.selectbox("Gender", ["Select your gender", "Male", "Female"])
+        nombre_completo = st.text_input(
+            "Full name",
+            value=st.session_state.get("usuario").Nombre + " " + st.session_state.get("usuario").Apellido
+                if "usuario" in st.session_state else ""
+        )
 
-        actual_date = date.today()
-        
+        genero = st.selectbox(
+            "Gender",
+            ["Select your gender", "Male", "Female"],
+            index= ["Select your gender", "Male", "Female"].index(
+                st.session_state["usuario"].Genero if "usuario" in st.session_state else "Select your gender"
+            )
+        )
+        actual_date = date.today()  
 
     with col2:
         edad = st.number_input("Age", min_value=0, max_value=80, step=1)
