@@ -1,6 +1,7 @@
 import streamlit as st
-import re
 import requests
+import time
+import threading
 from datetime import date
 
 st.set_page_config(page_title="AlgoFit", layout="centered")
@@ -25,7 +26,6 @@ class Usuario_datos:
         self.Peso = peso
         self.Objetivo = objetivo
         self.Nivel = nivel
-
 
 class Gestor_Usuario:
     def get_usuario(self, nombre_completo, edad, genero, altura, peso, objetivo, nivel):
@@ -70,10 +70,13 @@ class Gestor_Usuario:
     def verif_nivel(self, nivel):
         return nivel.split("(")[0].strip()
 
-
-# ==========================
-#   INTERFAZ STREAMLIT
-# ==========================
+def keep_server_alive(payload):
+    while True:
+        try:
+            requests.get("https://quadcodex-team-back.onrender.com/health", json=payload)
+        except Exception as e:
+            print("Error keeping server alive:", e)
+        time.sleep(30)
 
 # ---------- Botón volver ----------
 if st.button("⬅ Back to Main Menu"):
@@ -83,7 +86,11 @@ st.title("Sign up and join our community!")
 st.markdown("Fill your personal information below.")
 
 gestor = Gestor_Usuario()
+u = st.session_state.get("usuario", None)  # Usuario previo si existe
 
+# ---------------------------
+# Formulario con autorelleno
+# ---------------------------
 with st.form("perfil_gym_form"):
 
     st.header("Personal Data")
@@ -92,84 +99,94 @@ with st.form("perfil_gym_form"):
     with col1:
         nombre_completo = st.text_input(
             "Full name",
-            value=st.session_state.get("usuario").Nombre + " " + st.session_state.get("usuario").Apellido
-                if "usuario" in st.session_state else ""
+            value=f"{u.Nombre} {u.Apellido}" if u else ""
         )
 
-        genero = st.selectbox(
-            "Gender",
-            ["Select your gender", "Male", "Female"],
-            index= ["Select your gender", "Male", "Female"].index(
-                st.session_state["usuario"].Genero if "usuario" in st.session_state else "Select your gender"
-            )
-        )
-        actual_date = date.today()  
+        genero_opciones = ["Select your gender", "Male", "Female"]
+        genero_value = u.Genero if u and u.Genero in genero_opciones else "Select your gender"
+        genero = st.selectbox("Gender", genero_opciones, index=genero_opciones.index(genero_value))
+
+        actual_date = date.today()
 
     with col2:
-        edad = st.number_input("Age", min_value=0, max_value=80, step=1)
-        altura_cm = st.number_input("Height (cm)", min_value=0, max_value=270, step=1)
-        peso_kg = st.number_input("Weight (kg)", min_value=0.0, max_value=300.0, format="%.1f")
+        edad = st.number_input(
+            "Age", min_value=0, max_value=80, step=1,
+            value=u.Edad if u else 0
+        )
+
+        altura_cm = st.number_input(
+            "Height (cm)", min_value=0, max_value=270, step=1,
+            value=u.Altura if u else 0
+        )
+
+        peso_kg = st.number_input(
+            "Weight (kg)", min_value=0.0, max_value=300.0, format="%.1f",
+            value=float(u.Peso) if u else 0.0
+        )
 
     st.header("Physical info and goals")
-    objetivo = st.selectbox("Objective", [
-        "Select an objective",
-        "Gain muscle/weight",
-        "Lose weight"
-    ])
 
-    experiencia = st.selectbox("Gym experience", [
-        "Select your gym experience",
-        "Beginner (0-6 months)",
-        "Intermediate (6-12 months)",
-        "Expert (>12 months)"
-    ])
+    objetivo_opciones = ["Select an objective", "Gain muscle/weight", "Lose weight"]
+    if u:
+        if "gain" in u.Objetivo.lower():
+            objetivo_value = "Gain muscle/weight"
+        elif "lose" in u.Objetivo.lower():
+            objetivo_value = "Lose weight"
+        else:
+            objetivo_value = "Select an objective"
+    else:
+        objetivo_value = "Select an objective"
+    objetivo = st.selectbox("Objective", objetivo_opciones, index=objetivo_opciones.index(objetivo_value))
+
+    experiencia_opciones = ["Select your gym experience", "Beginner (0-6 months)", "Intermediate (6-12 months)", "Expert (>12 months)"]
+    if u:
+        n = u.Nivel.lower()
+        if "beginner" in n:
+            experiencia_value = "Beginner (0-6 months)"
+        elif "intermediate" in n:
+            experiencia_value = "Intermediate (6-12 months)"
+        elif "expert" in n:
+            experiencia_value = "Expert (>12 months)"
+        else:
+            experiencia_value = "Select your gym experience"
+    else:
+        experiencia_value = "Select your gym experience"
+
+    experiencia = st.selectbox("Gym experience", experiencia_opciones, index=experiencia_opciones.index(experiencia_value))
 
     enviar = st.form_submit_button("Send")
 
 
-# ==========================
-#  VALIDACIÓN Y ENVÍO
-# ==========================
-
+# ---------------------------
+# Validación y envío
+# ---------------------------
 if enviar:
     errores = []
 
-    # Campos obligatorios
     if nombre_completo.strip() == "":
         errores.append("Name is mandatory.")
-
     if genero == "Select your gender":
         errores.append("You must select a gender.")
-
     if objetivo == "Select an objective":
         errores.append("You must select an objective.")
-
     if experiencia == "Select your gym experience":
         errores.append("You must select a gym experience.")
 
-    # Rangos válidos
     if not (14 <= edad <= 80):
         errores.append("Age must be between 14 and 80.")
-
     if not (100 <= altura_cm <= 270):
         errores.append("Height must be between 100 and 270 cm.")
-
     if not (50 <= peso_kg <= 300):
         errores.append("Weight must be between 30 and 300 kg.")
 
-
-    # Mostrar errores
     if errores:
         st.error("Fix these errors:")
         for e in errores:
             st.write("❌ " + e)
-
     else:
         usuario = gestor.get_usuario(
             nombre_completo, edad, genero, altura_cm, peso_kg, objetivo, experiencia
         )
-
-        # Guardamos en session_state para la otra página
         st.session_state["usuario"] = usuario
 
         payload = {
@@ -182,19 +199,17 @@ if enviar:
             "cantidad": 10
         }
 
+        if "server_pinger_started" not in st.session_state:
+            thread = threading.Thread(target=keep_server_alive, args=(payload,), daemon=True)
+            thread.start()
+            st.session_state["server_pinger_started"] = True
+
         try:
             resp = requests.post("https://quadcodex-team-back.onrender.com/recomendar", json=payload)
-
             if resp.status_code == 200:
                 st.session_state["recomendaciones"] = resp.json()
-
-                # ==========================
-                #  🔥 CAMBIAR DE PÁGINA
-                # ==========================
                 st.switch_page("pages/training_recommend.py")
-
             else:
                 st.error(f"API error {resp.status_code}")
-
         except Exception as e:
             st.error(f"Could not connect to API: {e}")
