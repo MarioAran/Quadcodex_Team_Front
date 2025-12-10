@@ -46,7 +46,7 @@ for i, exercise in enumerate(recs):
         st.markdown(f"**Level:** {exercise['Level']}")
         st.markdown(f"**Equipment:** {exercise['Equipment']}")
     with cols[3]:
-        st.markdown(f"**Rating:** {min(exercise['rating_score'], 10.0)}/10")
+        st.markdown(f"**Rating:** {min(exercise['rating_score'], 10.0):.1f}/10")
     with cols[4]:
         st.progress(min(exercise['final_score'],1.0))  # barra para final_score
 
