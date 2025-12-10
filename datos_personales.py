@@ -76,7 +76,12 @@ def keep_server_alive(payload):
             requests.get("https://quadcodex-team-back.onrender.com/health", json=payload)
         except Exception as e:
             print("Error keeping server alive:", e)
-        time.sleep(30)
+        time.sleep(10)
+
+if "server_pinger_started" not in st.session_state:
+    thread = threading.Thread(target=keep_server_alive, daemon=True)
+    thread.start()
+    st.session_state["server_pinger_started"] = True
 
 # ---------- Botón volver ----------
 if st.button("⬅ Back to Main Menu"):
@@ -198,11 +203,6 @@ if enviar:
             "nivel": usuario.Nivel,
             "cantidad": 10
         }
-
-        if "server_pinger_started" not in st.session_state:
-            thread = threading.Thread(target=keep_server_alive, args=(payload,), daemon=True)
-            thread.start()
-            st.session_state["server_pinger_started"] = True
 
         try:
             resp = requests.post("https://quadcodex-team-back.onrender.com/recomendar", json=payload)
