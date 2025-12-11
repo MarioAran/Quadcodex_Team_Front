@@ -87,7 +87,7 @@ class Gestor_Usuario:
 # ==========================
 
 if st.button("⬅ Back to Main Menu"):
-    st.switch_page("menu.py")
+    st.switch_page("pages/menu.py")
 
 st.title("Sign up and join our community!")
 st.markdown("Fill your personal information below.")

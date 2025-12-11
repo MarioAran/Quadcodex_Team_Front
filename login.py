@@ -3,6 +3,17 @@ import re
 import requests
 
 st.set_page_config(page_title="Página Principal", layout="centered")
+
+hide_menu_style = """
+    <style>
+        [data-testid="stSidebar"] {display: none !important;}
+        [data-testid="stSidebarNav"] {display: none !important;}
+        section[data-testid="stSidebar"] {display: none !important;}
+        div[data-testid="expandedSidebar"] {display: none !important;}
+    </style>
+"""
+st.markdown(hide_menu_style, unsafe_allow_html=True)
+
 st.title("Login")
 user = st.text_input("Usuario")
 pwd = st.text_input("Contraseña", type="password")

@@ -15,7 +15,7 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # ---------- Botón volver ----------
 if st.button("⬅ Back to Main Page"):
-    st.switch_page("menu.py")
+    st.switch_page("pages/menu.py")
 
 # ---------- Datos ----------
 if "recomendaciones" not in st.session_state:
