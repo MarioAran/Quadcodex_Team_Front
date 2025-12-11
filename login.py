@@ -12,6 +12,21 @@ hide_menu_style = """
         div[data-testid="expandedSidebar"] {display: none !important;}
     </style>
 """
+
+st.markdown("""
+    <style>
+        /* Ocultar barra superior */
+        header[data-testid="stHeader"] {
+            display: none !important;
+        }
+
+        /* Evitar padding superior extra */
+        .block-container {
+            padding-top: 2rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 st.title("Login")

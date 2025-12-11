@@ -11,10 +11,24 @@ hide_menu_style = """
     </style>
 """
 
+st.markdown("""
+    <style>
+        /* Ocultar barra superior */
+        header[data-testid="stHeader"] {
+            display: none !important;
+        }
+
+        /* Evitar padding superior extra */
+        .block-container {
+            padding-top: 2rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # ---------- Botón volver ----------
-if st.button("⬅ Back to Main Page"):
+if st.button("⬅ Back to Main Menu"):
     st.switch_page("pages/menu.py")
 
 # ---------- Datos ----------

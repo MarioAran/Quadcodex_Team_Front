@@ -13,6 +13,21 @@ hide_menu_style = """
         div[data-testid="expandedSidebar"] {display: none !important;}
     </style>
 """
+
+st.markdown("""
+    <style>
+        /* Ocultar barra superior */
+        header[data-testid="stHeader"] {
+            display: none !important;
+        }
+
+        /* Evitar padding superior extra */
+        .block-container {
+            padding-top: 2rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # ==============================
@@ -59,7 +74,7 @@ class Gestor_Usuario:
         return nombre, apellido
 
     def verif_edad(self, edad):
-        return max(12, min(edad, 80))
+        return max(18, min(edad, 80))
 
     def verif_genero(self, genero):
         return genero if genero in ["Male", "Female"] else "Other"
@@ -131,7 +146,7 @@ with st.form("perfil_gym_form"):
         "Expert (>12 months)"
     ])
 
-    enviar = st.form_submit_button("Send")
+    enviar = st.form_submit_button("Send to recommend")
 
 
 # ==========================
