@@ -15,6 +15,17 @@ hide_menu_style = """
 """
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
+# ==============================
+#  DATOS DEL LOGIN
+# ==============================
+usuario_api = st.session_state.get("user", {})
+
+nombre_api = usuario_api.get("nombre", "")
+apellido_api = usuario_api.get("apellido", "")
+dni_api = usuario_api.get("dni", "")
+id_user_api = usuario_api.get("id_user", None)
+
+
 class Usuario_datos:
     def __init__(self, nombre, apellido, edad, genero, altura, peso, objetivo, nivel):
         self.Nombre = nombre
@@ -75,7 +86,6 @@ class Gestor_Usuario:
 #   INTERFAZ STREAMLIT
 # ==========================
 
-# ---------- Botón volver ----------
 if st.button("⬅ Back to Main Menu"):
     st.switch_page("menu.py")
 
@@ -90,27 +100,24 @@ with st.form("perfil_gym_form"):
     col1, col2 = st.columns(2)
 
     with col1:
+        # 🔥 SE PRELLENA EL NOMBRE Y APELLIDO DEL LOGIN
         nombre_completo = st.text_input(
             "Full name",
-            value=st.session_state.get("usuario").Nombre + " " + st.session_state.get("usuario").Apellido
-                if "usuario" in st.session_state else ""
+            value=f"{nombre_api} {apellido_api}"
         )
 
         genero = st.selectbox(
             "Gender",
-            ["Select your gender", "Male", "Female"],
-            index= ["Select your gender", "Male", "Female"].index(
-                st.session_state["usuario"].Genero if "usuario" in st.session_state else "Select your gender"
-            )
+            ["Select your gender", "Male", "Female"]
         )
-        actual_date = date.today()  
 
     with col2:
-        edad = st.number_input("Age", min_value=0, max_value=80, step=1)
-        altura_cm = st.number_input("Height (cm)", min_value=0, max_value=270, step=1)
-        peso_kg = st.number_input("Weight (kg)", min_value=0.0, max_value=300.0, format="%.1f")
+        edad = st.number_input("Age", min_value=12, max_value=80, step=1)
+        altura_cm = st.number_input("Height (cm)", min_value=100, max_value=270, step=1)
+        peso_kg = st.number_input("Weight (kg)", min_value=30.0, max_value=300.0, format="%.1f")
 
     st.header("Physical info and goals")
+
     objetivo = st.selectbox("Objective", [
         "Select an objective",
         "Gain muscle/weight",
@@ -134,7 +141,6 @@ with st.form("perfil_gym_form"):
 if enviar:
     errores = []
 
-    # Campos obligatorios
     if nombre_completo.strip() == "":
         errores.append("Name is mandatory.")
 
@@ -147,7 +153,6 @@ if enviar:
     if experiencia == "Select your gym experience":
         errores.append("You must select a gym experience.")
 
-    # Rangos válidos
     if not (14 <= edad <= 80):
         errores.append("Age must be between 14 and 80.")
 
@@ -155,10 +160,8 @@ if enviar:
         errores.append("Height must be between 100 and 270 cm.")
 
     if not (50 <= peso_kg <= 300):
-        errores.append("Weight must be between 30 and 300 kg.")
+        errores.append("Weight must be between 50 and 300 kg.")
 
-
-    # Mostrar errores
     if errores:
         st.error("Fix these errors:")
         for e in errores:
@@ -169,10 +172,11 @@ if enviar:
             nombre_completo, edad, genero, altura_cm, peso_kg, objetivo, experiencia
         )
 
-        # Guardamos en session_state para la otra página
         st.session_state["usuario"] = usuario
 
+        # 🔥 SE AGREGA id_user PARA LA API
         payload = {
+            "id_user": id_user_api,
             "nombre": usuario.Nombre,
             "genero": usuario.Genero.lower(),
             "edad": usuario.Edad,
@@ -187,10 +191,6 @@ if enviar:
 
             if resp.status_code == 200:
                 st.session_state["recomendaciones"] = resp.json()
-
-                # ==========================
-                #  🔥 CAMBIAR DE PÁGINA
-                # ==========================
                 st.switch_page("pages/training_recommend.py")
 
             else:
