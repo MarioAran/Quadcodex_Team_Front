@@ -17,4 +17,4 @@ echo "Instalando dependencias..."
 pip install --upgrade pip
 pip install -r requirements.txt
 
-streamlit run ../datos_personales.py
+streamlit run ../menu.py

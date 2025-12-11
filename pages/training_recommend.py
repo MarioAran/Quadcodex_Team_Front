@@ -13,16 +13,10 @@ hide_menu_style = """
 
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
-# ---------- Botones en la misma fila ----------
-col_back, col_download = st.columns([0.2,0.5])
+# ---------- Botón volver ----------
+if st.button("⬅ Back to Main Page"):
+    st.switch_page("menu.py")
 
-with col_back:
-    if st.button("⬅ Back to Main Page"):
-        st.switch_page("datos_personales.py")
-
-with col_download:
-    st.button("⬇ Download")
-    
 # ---------- Datos ----------
 if "recomendaciones" not in st.session_state:
     st.error("❌ No data received. Please complete your profile first.")
@@ -35,7 +29,7 @@ recs = data.get("recomendaciones", [])
 st.title("🏋️‍♂️ Your Personalized Training Plan")
 
 usuario = st.session_state["usuario"]
-st.markdown(f"**User:** {usuario.Nombre} {usuario.Apellido}| **Gender:** {usuario.Genero} | Age: {usuario.Edad} | Height: {usuario.Altura} cm | Weight: {usuario.Peso} kg")
+st.markdown(f"**User:** {usuario.Nombre} {usuario.Apellido} | **Gender:** {usuario.Genero} | Age: {usuario.Edad} | Height: {usuario.Altura} cm | Weight: {usuario.Peso} kg")
 st.markdown(f"**Level:** {usuario.Nivel} | **Exercises Recommended:** {len(st.session_state.get('recomendaciones', {}).get('recomendaciones', []))}")
     
 st.write("---")
@@ -52,7 +46,7 @@ for i, exercise in enumerate(recs):
         st.markdown(f"**Level:** {exercise['Level']}")
         st.markdown(f"**Equipment:** {exercise['Equipment']}")
     with cols[3]:
-        st.markdown(f"**Rating:** {min(exercise['rating_score'], 10.0):.1f}/10")
+        st.markdown(f"**Rating:** {min(exercise['rating_score'], 10.0)}/10")
     with cols[4]:
         st.progress(min(exercise['final_score'],1.0))  # barra para final_score
 
