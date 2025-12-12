@@ -1,5 +1,12 @@
 import streamlit as st
 
+
+import os
+st.write("Working dir:", os.getcwd())
+st.write("¿Existe la imagen?", os.path.exists("../images/AlgoFit.png"))
+st.write("Listando carpeta images:", os.listdir("../images") if os.path.exists("images") else "No existe")
+
+
 # Configurar la página
 st.set_page_config(page_title="Página Principal", layout="centered")
 
@@ -51,7 +58,6 @@ with container:
         
         im1, im2, im3 = st.columns([0.3,1,0.3])
         with im2:
-
             st.image("../images/AlgoFit.png", width=300)
 
         valor = st.slider("", 1, 10, 5)
