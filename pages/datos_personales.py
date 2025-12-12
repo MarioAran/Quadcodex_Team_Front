@@ -14,6 +14,7 @@ hide_menu_style = """
     </style>
 """
 
+
 st.markdown("""
     <style>
         /* Ocultar barra superior */
@@ -28,6 +29,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # ==============================
@@ -39,6 +41,10 @@ nombre_api = usuario_api.get("nombre", "")
 apellido_api = usuario_api.get("apellido", "")
 dni_api = usuario_api.get("dni", "")
 id_user_api = usuario_api.get("id_user", None)
+genero_api = usuario_api.get("genero", "")
+edad_api = usuario_api.get("edad", "")
+altura_api = usuario_api.get("altura", "")
+peso_api = usuario_api.get("peso", "")
 
 
 class Usuario_datos:
@@ -77,7 +83,7 @@ class Gestor_Usuario:
         return max(18, min(edad, 80))
 
     def verif_genero(self, genero):
-        return genero if genero in ["Male", "Female"] else "Other"
+        return genero if genero in ["male", "female"] else "Other"
 
     def verif_altura(self, altura):
         return max(100, min(altura, 270))
@@ -115,21 +121,46 @@ with st.form("perfil_gym_form"):
     col1, col2 = st.columns(2)
 
     with col1:
-        # 🔥 SE PRELLENA EL NOMBRE Y APELLIDO DEL LOGIN
+        # Prellenado de nombre
         nombre_completo = st.text_input(
             "Full name",
-            value=f"{nombre_api} {apellido_api}"
+            value=f"{nombre_api} {apellido_api}".strip()
         )
 
         genero = st.selectbox(
             "Gender",
-            ["Select your gender", "Male", "Female"]
+            ["male", "female"],
+            index=(
+                1 if genero_api == "male" else
+                2 if genero_api == "female" else
+                0
+            )
         )
 
     with col2:
-        edad = st.number_input("Age", min_value=12, max_value=80, step=1)
-        altura_cm = st.number_input("Height (cm)", min_value=100, max_value=270, step=1)
-        peso_kg = st.number_input("Weight (kg)", min_value=30.0, max_value=300.0, format="%.1f")
+        edad = st.number_input(
+            "Age",
+            min_value=12,
+            max_value=80,
+            step=1,
+            value=int(edad_api) if str(edad_api).isdigit() else 18
+        )
+
+        altura_cm = st.number_input(
+            "Height (cm)",
+            min_value=100,
+            max_value=270,
+            step=1,
+            value=int(altura_api) if str(altura_api).isdigit() else 170
+        )
+
+        peso_kg = st.number_input(
+            "Weight (kg)",
+            min_value=30.0,
+            max_value=300.0,
+            step=0.1,
+            value=float(peso_api) if str(peso_api).replace('.', '').isdigit() else 70.0
+        )
 
     st.header("Physical info and goals")
 
@@ -140,14 +171,12 @@ with st.form("perfil_gym_form"):
     ])
 
     experiencia = st.selectbox("Gym experience", [
-        "Select your gym experience",
         "Beginner (0-6 months)",
         "Intermediate (6-12 months)",
         "Expert (>12 months)"
     ])
 
     enviar = st.form_submit_button("Send to recommend")
-
 
 # ==========================
 #  VALIDACIÓN Y ENVÍO
@@ -168,15 +197,6 @@ if enviar:
     if experiencia == "Select your gym experience":
         errores.append("You must select a gym experience.")
 
-    if not (14 <= edad <= 80):
-        errores.append("Age must be between 14 and 80.")
-
-    if not (100 <= altura_cm <= 270):
-        errores.append("Height must be between 100 and 270 cm.")
-
-    if not (50 <= peso_kg <= 300):
-        errores.append("Weight must be between 50 and 300 kg.")
-
     if errores:
         st.error("Fix these errors:")
         for e in errores:
@@ -189,7 +209,6 @@ if enviar:
 
         st.session_state["usuario"] = usuario
 
-        # 🔥 SE AGREGA id_user PARA LA API
         payload = {
             "id_user": id_user_api,
             "nombre": usuario.Nombre,
@@ -197,7 +216,7 @@ if enviar:
             "edad": usuario.Edad,
             "peso": usuario.Peso,
             "altura": usuario.Altura,
-            "nivel": usuario.Nivel,
+            "nivel": usuario.Nivel.lower(),
             "cantidad": 10
         }
 
@@ -207,7 +226,6 @@ if enviar:
             if resp.status_code == 200:
                 st.session_state["recomendaciones"] = resp.json()
                 st.switch_page("pages/training_recommend.py")
-
             else:
                 st.error(f"API error {resp.status_code}")
 

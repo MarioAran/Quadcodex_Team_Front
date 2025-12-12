@@ -26,7 +26,6 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
-
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 st.title("Login")
