@@ -1,13 +1,9 @@
 import streamlit as st
+from colores import Colores_class
 
 # Configurar página
 st.set_page_config(page_title="Página Principal", layout="centered")
-
-# Paleta de colores
-AZUL_OSCURO = "#1995AD"
-AZUL_MEDIO = "#A1D6E2"
-AZUL_CLARO = "#BCBABE"
-AZUL_BLANCO = "#F1F1F2"
+colores = Colores_class()
 
 # Ocultar sidebar
 hide_menu_style = f"""
@@ -24,14 +20,14 @@ st.markdown(f"""
     <style>
         /* Fondo general */
         .stApp {{
-            background-color: {AZUL_BLANCO};
+            background-color: {colores.get_blanco()};
         }}
 
         /* Contenedor principal */
         .block-container {{
             margin-top: 50px;  /* <-- separa del borde superior */
             padding-top: 2rem;
-            background-color: {AZUL_CLARO};
+            background-color: {colores.get_claro()};
             border-radius: 15px;
             padding-bottom: 1rem;
         }}
@@ -42,16 +38,16 @@ st.markdown(f"""
             font-size: 20px;
             font-weight: bold;
             border-radius: 10px;
-            background-color: {AZUL_OSCURO};
+            background-color: {colores.get_oscuro()};
             color: white;
-            border: 2px solid {AZUL_MEDIO};
+            border: 2px solid {colores.get_claro()};
             transition: 0.2s ease-in-out;
         }}
 
         div.stButton > button:hover {{
-            background-color: {AZUL_MEDIO};
+            background-color: {colores.get_claro()};
             color: black;
-            border: 2px solid {AZUL_OSCURO};
+            border: 2px solid {colores.get_claro()};
         }}
 
         /* Ocultar barra superior */

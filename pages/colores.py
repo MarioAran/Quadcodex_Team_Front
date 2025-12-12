@@ -1,4 +1,4 @@
-class Colores:
+class Colores_class:
     def __init__(self):
         self.AZUL_OSCURO = "#1995AD"
         self.AZUL_MEDIO = "#A1D6E2"
@@ -17,5 +17,4 @@ class Colores:
     def get_blanco(self):
         return self.AZUL_BLANCO
     
-colores = Colores()
 
