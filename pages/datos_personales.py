@@ -2,13 +2,10 @@ import streamlit as st
 import re
 import requests
 from datetime import date
+from colores import Colores_class
 
 st.set_page_config(page_title="AlgoFit", layout="centered")
-
-AZUL_OSCURO = "#1995AD"
-AZUL_MEDIO = "#A1D6E2"
-AZUL_CLARO = "#BCBABE"
-AZUL_BLANCO = "#F1F1F2"
+colores = Colores_class()
 
 hide_menu_style = """
     <style>
@@ -49,16 +46,16 @@ st.markdown(f"""
             font-size: 20px;
             font-weight: bold;
             border-radius: 10px;
-            background-color: {AZUL_OSCURO};
+            background-color: {colores.get_oscuro()};
             color: white;
-            border: 2px solid {AZUL_MEDIO};
+            border: 2px solid {colores.get_medio()};
             transition: 0.2s ease-in-out;
         }}
 
         div.stButton > button:hover {{
-            background-color: {AZUL_MEDIO};
+            background-color: {colores.get_medio()};
             color: black;
-            border: 2px solid {AZUL_OSCURO};
+            border: 2px solid {colores.get_oscuro()};
         }}
     </style>
 """, unsafe_allow_html=True)

@@ -1,7 +1,6 @@
 import streamlit as st
 from colores import Colores_class
 
-# Configurar página
 st.set_page_config(page_title="Página Principal", layout="centered")
 colores = Colores_class()
 

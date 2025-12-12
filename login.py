@@ -1,8 +1,10 @@
 import streamlit as st
 import re
 import requests
+from colores import Colores_class
 
 st.set_page_config(page_title="Página Principal", layout="centered")
+colores = Colores_class()
 
 AZUL_OSCURO = "#1995AD"
 AZUL_MEDIO = "#A1D6E2"
