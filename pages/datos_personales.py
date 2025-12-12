@@ -5,6 +5,11 @@ from datetime import date
 
 st.set_page_config(page_title="AlgoFit", layout="centered")
 
+AZUL_OSCURO = "#445599"
+AZUL_MEDIO = "#A8AED7"
+AZUL_CLARO = "#E1E4F6"
+AZUL_BLANCO = "#FFFFFF"
+
 hide_menu_style = """
     <style>
         [data-testid="stSidebar"] {display: none !important;}
@@ -26,6 +31,35 @@ st.markdown("""
         .block-container {
             padding-top: 2rem;
         }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown(f"""
+    <style>
+        .block-container {{
+            margin-top: 50px;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            background-color: rgba(225, 228, 246, 0.85); /* azul claro semi-transparente */
+            border-radius: 15px;
+        }}
+
+        div.stButton > button {{
+            padding: 15px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 10px;
+            background-color: {AZUL_OSCURO};
+            color: white;
+            border: 2px solid {AZUL_MEDIO};
+            transition: 0.2s ease-in-out;
+        }}
+
+        div.stButton > button:hover {{
+            background-color: {AZUL_MEDIO};
+            color: black;
+            border: 2px solid {AZUL_OSCURO};
+        }}
     </style>
 """, unsafe_allow_html=True)
 
@@ -137,6 +171,13 @@ with st.form("perfil_gym_form"):
             )
         )
 
+        num_default = 6
+        cantidad = st.selectbox(
+            "Number of exercises",
+            list(range(1, 11)),  # genera la lista [1, 2, ..., 10]
+            index=(num_default - 1)  # index empieza en 0, por eso restamos 1
+        )
+
     with col2:
         edad = st.number_input(
             "Age",
@@ -217,7 +258,7 @@ if enviar:
             "peso": usuario.Peso,
             "altura": usuario.Altura,
             "nivel": usuario.Nivel.lower(),
-            "cantidad": 10
+            "cantidad": cantidad
         }
 
         try:
