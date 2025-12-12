@@ -1,11 +1,12 @@
 import streamlit as st
 
 
+'''
 import os
 st.write("Working dir:", os.getcwd())
-st.write("¿Existe la imagen?", os.path.exists("../images/AlgoFit.png"))
-st.write("Listando carpeta images:", os.listdir("../images") if os.path.exists("images") else "No existe")
-
+st.write("¿Existe la imagen?", os.path.exists("images/AlgoFit.png"))
+st.write("Listando carpeta images:", os.listdir("images") if os.path.exists("images") else "No existe")
+'''
 
 # Configurar la página
 st.set_page_config(page_title="Página Principal", layout="centered")
