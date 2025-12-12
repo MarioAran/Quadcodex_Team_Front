@@ -58,7 +58,7 @@ with container:
         
         im1, im2, im3 = st.columns([0.3,1,0.3])
         with im2:
-            st.image("../images/AlgoFit.png", width=300)
+            st.image("images/AlgoFit.png", width=300)
 
         valor = st.slider("", 1, 10, 5)
         st.write("")
