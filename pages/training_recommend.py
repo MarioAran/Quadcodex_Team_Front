@@ -1,5 +1,10 @@
 import streamlit as st
 
+AZUL_OSCURO = "#1995AD"
+AZUL_MEDIO = "#A1D6E2"
+AZUL_CLARO = "#BCBABE"
+AZUL_BLANCO = "#F1F1F2"
+
 MUSCLE_MAP = {
     "abs": "abs", "abdominals": "abs", "core": "abs",
     "quadriceps": "legs", "quads": "legs", "hamstrings": "legs",

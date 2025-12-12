@@ -5,10 +5,10 @@ from datetime import date
 
 st.set_page_config(page_title="AlgoFit", layout="centered")
 
-AZUL_OSCURO = "#445599"
-AZUL_MEDIO = "#A8AED7"
-AZUL_CLARO = "#E1E4F6"
-AZUL_BLANCO = "#FFFFFF"
+AZUL_OSCURO = "#1995AD"
+AZUL_MEDIO = "#A1D6E2"
+AZUL_CLARO = "#BCBABE"
+AZUL_BLANCO = "#F1F1F2"
 
 hide_menu_style = """
     <style>
