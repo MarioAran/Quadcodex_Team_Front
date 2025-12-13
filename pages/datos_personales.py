@@ -323,7 +323,7 @@ with st.form("perfil_gym_form"):
     with col2:
         edad = st.number_input(
             "Age",
-            min_value=12,
+            min_value=18,
             max_value=80,
             step=1,
             value=int(edad_api) if str(edad_api).isdigit() else 18

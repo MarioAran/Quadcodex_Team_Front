@@ -14,14 +14,14 @@ MUSCLE_MAP = {
 
 # Mapa final → imagen
 MUSCLE_IMAGES = {
-    "abs": "https://via.placeholder.com/80x80.png?text=ABS",
-    "legs": "https://via.placeholder.com/80x80.png?text=LEGS",
-    "chest": "https://via.placeholder.com/80x80.png?text=CHEST",
-    "back": "https://via.placeholder.com/80x80.png?text=BACK",
-    "shoulders": "https://via.placeholder.com/80x80.png?text=SHOULDERS",
-    "biceps": "https://via.placeholder.com/80x80.png?text=BICEPS",
-    "triceps": "https://via.placeholder.com/80x80.png?text=TRICEPS",
-    "glutes": "https://via.placeholder.com/80x80.png?text=GLUTES",
+    "abs": "images/AlgoFit_Abs.png",
+    "legs": "images/AlgoFit_Legs.png",
+    "chest": "images/AlgoFit_Chest.png",
+    "back": "images/AlgoFit_Back.png",
+    "shoulders": "images/AlgoFit_Shoulders.png",
+    "biceps": "images/AlgoFit_Biceps.png",
+    "triceps": "images/AlgoFit_Triceps.png",
+    "glutes": "images/AlgoFit_Glutes",
 }
 
 DEFAULT_IMAGE = "https://via.placeholder.com/80x80.png?text=IMG"
@@ -188,7 +188,7 @@ for i, exercise in enumerate(recs):
     )
 
     with container_rec:
-        cols = st.columns([1.5, 3, 2, 2, 2], vertical_alignment= "center")
+        cols = st.columns([1, 3, 1, 1, 2], vertical_alignment= "center")
 
         with cols[0]:
             img_url = get_muscle_image(exercise["muscles"])
