@@ -1,3 +1,4 @@
+### clases de colores
 class Colores_class:
     def __init__(self):
         self.__BOTONES_1 = "#1995AD"

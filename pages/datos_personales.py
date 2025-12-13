@@ -1,12 +1,13 @@
 import streamlit as st
-import re
 import requests
 from datetime import date
 from colores import Colores_class
 
-st.set_page_config(page_title="AlgoFit", layout="centered")
+st.set_page_config(page_title="AlgoFit-Personal data", layout="centered")
 colores = Colores_class()
 
+### Estetica
+# Ocultar barra de arriba
 hide_menu_style = """
     <style>
         [data-testid="stSidebar"] {display: none !important;}
@@ -15,8 +16,7 @@ hide_menu_style = """
         div[data-testid="expandedSidebar"] {display: none !important;}
     </style>
 """
-
-
+# Ocultar barra de la izquierda
 st.markdown("""
     <style>
         /* Ocultar barra superior */
@@ -31,6 +31,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# Estilo del resto
 st.markdown(f"""
     <style>
         /* Fondo general */
@@ -38,6 +39,7 @@ st.markdown(f"""
             background-color: {colores.get_fondo_general()};
         }}
 
+        /* Contenedor */
         .block-container {{
             margin-top: 50px;
             padding-top: 2rem;
@@ -46,6 +48,7 @@ st.markdown(f"""
             border-radius: 15px;
         }}
 
+        /* Botones */
         div.stButton > button {{
             padding: 15px 40px;
             font-size: 20px;
@@ -63,18 +66,14 @@ st.markdown(f"""
             border: 2px solid {colores.get_botones_1()};
         }}
 
-            /* =============================
-        LABELS (títulos de inputs)
-        ============================== */
+        /* Labels */
         label {{
             font-weight: 600 !important;
             color: {colores.get_fondo_general()} !important;
             font-size: 18px !important;
         }}
 
-        /* =============================
-        CONTENEDORES DE INPUTS
-        ============================== */
+        /* Contenedores de inputs */
         .stTextInput, .stNumberInput, .stSelectbox {{
             background-color: {colores.get_cajas_terciarias()};
             padding: 10px 12px 5px 12px;
@@ -82,9 +81,7 @@ st.markdown(f"""
             border: 2px solid {colores.get_botones_2()};
         }}
 
-        /* =============================
-        INPUTS DE TEXTO Y NÚMEROS
-        ============================== */
+        /* Inputs de textos y numeros */
         input {{
             background-color: {colores.get_botones_2()};
             padding: 8px 10px !important;
@@ -96,9 +93,7 @@ st.markdown(f"""
         }}
 
 
-        /* ==========================================
-       SELECTBOX (Caja principal cerrada)
-        ========================================== */
+        /* Selectboxs cerradas */
         div[data-baseweb="select"] > div {{
             background-color: {colores.get_botones_2()} !important;
             border: 2px solid {colores.get_botones_1()} !important;
@@ -119,24 +114,19 @@ st.markdown(f"""
             border-color: white !important;
         }}
 
-        /* =============================
-        DROPDOWN DEL SELECTBOX
-        ============================== */
+        /* Desplegable de las selectbox */
         ul[role="listbox"] {{
             background-color: {colores.get_botones_2()};
             border-radius: 6px;
             border: 1px solid {colores.get_botones_1()};
         }}
 
-
         li[role="option"]:hover {{
             background-color: white !important;
             color: black !important;
         }}
 
-        /* =============================
-        SELECTBOX (real background)
-        ============================= */
+        /* Selectbox (real background) */
         div[data-baseweb="select"] > div {{
             background-color: {colores.get_botones_2()} !important;
             border: 2px solid {colores.get_botones_1()} !important;
@@ -149,16 +139,14 @@ st.markdown(f"""
             border-radius: 6px;
         }}
 
-        /* =============================
-        NUMBER INPUT (real background)
-        ============================= */
+        /* Inputs de numeros (real background) */
         div[data-baseweb="input"] > div {{
             background-color: {colores.get_botones_2()} !important;
-            border: 3px solid {colores.get_botones_1()} !important;
+            border: 2px solid {colores.get_botones_1()} !important;
             border-radius: 6px !important;
         }}
         
-        /* Caja central (donde está el número) */
+        /* Caja central (donde esta el numero) */
         div[data-testid="stNumberInput"] div[data-baseweb="input"] > div {{
             background-color: {colores.get_botones_2()} !important;
             border: 3px solid {colores.get_botones_1()} !important;
@@ -184,36 +172,14 @@ st.markdown(f"""
             color: black !important;
         }}
 
-        /* =============================
-        INPUT DE TEXTO (nombre) – estilo como selectbox
-        ============================= */
-        div[data-baseweb="input"] > div input[type="text"]:focus {{
-            border: 3px solid white !important;
-            outline: none !important;
-            border-radius: 6px !important;
-        }}
-
-        /* =============================
-        INPUT DE TEXTO (nombre) – estilo como selectbox
-        ============================= */
-        div[data-baseweb="input"] > div input[type="text"]:focus {{
-            border: 3px solid white !important;
-            outline: none !important;
-            border-radius: 6px !important;
-        }}
-
-        /* =============================
-        INPUT NUMÉRICO – borde al foco
-        ============================= */
+        /* Inputs de numeros – borde al foco */
         div[data-testid="stNumberInput"] input:focus {{
             border: 3px solid white !important;
             outline: none !important;
             border-radius: 6px !important;
         }}
 
-        /* =============================
-        INPUT DE TEXTO – borde al foco
-        ============================= */
+        /* Inputs de numeros – borde al foco */
         div[data-baseweb="input"] > div input[type="text"]:focus {{
             border: 3px solid white !important;
             box-shadow: none !important;
@@ -221,51 +187,22 @@ st.markdown(f"""
             border-radius: 6px !important;
         }}
 
-        /* =============================
-        INPUT NUMÉRICO – borde al foco
-        ============================= */
-        div[data-testid="stNumberInput"] input:focus {{
-            border: 3px solid white !important;
-            outline: none !important;
-            border-radius: 6px !important;
-        }}
-
-        /* =============================
-        SELECTBOX – borde al foco
-        ============================= */
+        /* Selectbox – borde al foco */
         div[data-baseweb="select"]:focus-within {{
             border: 3px solid white !important;
             border-radius: 6px !important;
         }}
-
-        /* =============================
-        INPUT DE TEXTO – borde al foco
-        ============================= */
-        div[data-baseweb="input"] > div input[type="text"]:focus {{
-            border: 3px solid white !important;
-            outline: none !important;
-            border-radius: 6px !important;
+        
+        div[data-baseweb="input"] input[type="text"],
+        div[data-baseweb="input"] input[type="password"] {{
+            color: black !important;
         }}
 
-        /* =============================
-        INPUT NUMÉRICO – borde al foco
-        ============================= */
-        div[data-testid="stNumberInput"] input:focus {{
-            border: 3px solid white !important;
-            outline: none !important;
-            border-radius: 6px !important;
-        }}
-
-        /* =============================
-        SELECTBOX – borde al foco
-        ============================= */
-        div[data-baseweb="select"]:focus-within {{
-            border: 3px solid white !important;
-            border-radius: 6px !important;
-        }}
+        
         </style>
 """, unsafe_allow_html=True)
 
+# Estetica para cajas secundarias
 css = f"""
 <style>
     [data-testid="stForm"] {{
@@ -277,9 +214,7 @@ css = f"""
 st.write(css, unsafe_allow_html=True)
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
-# ==============================
-#  DATOS DEL LOGIN
-# ==============================
+### Datos de Login
 usuario_api = st.session_state.get("user", {})
 
 nombre_api = usuario_api.get("nombre", "")
@@ -291,7 +226,7 @@ edad_api = usuario_api.get("edad", "")
 altura_api = usuario_api.get("altura", "")
 peso_api = usuario_api.get("peso", "")
 
-
+### Clase de usuario
 class Usuario_datos:
     def __init__(self, nombre, apellido, edad, genero, altura, peso, objetivo, nivel):
         self.Nombre = nombre
@@ -303,7 +238,7 @@ class Usuario_datos:
         self.Objetivo = objetivo
         self.Nivel = nivel
 
-
+### Gestor de clase de usuario
 class Gestor_Usuario:
     def get_usuario(self, nombre_completo, edad, genero, altura, peso, objetivo, nivel):
         nombre, apellido = self.verif_nombre(nombre_completo)
@@ -348,14 +283,11 @@ class Gestor_Usuario:
         return nivel.split("(")[0].strip()
 
 
-# ==========================
-#   INTERFAZ STREAMLIT
-# ==========================
-
+### Interfaz
 if st.button("⬅ Back to Main Menu"):
     st.switch_page("pages/menu.py")
 
-st.title("Sign up and join our community!")
+st.title("Before starting!")
 st.markdown("Fill your personal information below.")
 
 gestor = Gestor_Usuario()
@@ -429,9 +361,7 @@ with st.form("perfil_gym_form"):
     
     enviar = st.form_submit_button("Send to recommend")
 
-# ==========================
-#  VALIDACIÓN Y ENVÍO
-# ==========================
+### Validacion y envio
 
 if enviar:
     errores = []
@@ -460,6 +390,7 @@ if enviar:
 
         st.session_state["usuario"] = usuario
 
+        # Datos del usuario que se guardan
         payload = {
             "id_user": id_user_api,
             "nombre": usuario.Nombre,
@@ -471,6 +402,7 @@ if enviar:
             "cantidad": cantidad
         }
 
+        # Llamadas a la API
         try:
             resp = requests.post("https://quadcodex-team-back.onrender.com/recomendar", json=payload)
 

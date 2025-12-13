@@ -58,6 +58,37 @@ st.markdown(f"""
 
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
+st.markdown("""
+    <style>
+        .contact-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #A1D6E2;
+            color: white;
+            padding: 14px 22px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.2s ease-in-out;
+            z-index: 9999;
+        }
+
+        .contact-button:hover {
+            background-color: #1995AD;
+            transform: scale(1.05);
+            color: white;
+        }
+    </style>
+
+    <a href="https://docs.google.com/document/d/1PVFGo_wejt-lQle5M6s0c27xSXvV65I2l97M_cnZuEU/edit?usp=sharing"
+       target="_blank"
+       class="contact-button">
+        Contacts
+    </a>
+""", unsafe_allow_html=True)
+
 container = st.container(vertical_alignment = "center", border=False)
 
 with container:
@@ -65,14 +96,13 @@ with container:
     col1, col2, col3 = st.columns([0.2, 1, 0.2],vertical_alignment="center")
 
     with col2:
-        #st.markdown("<h1 style='text-align: center;'>Página Principal</h1>", unsafe_allow_html=True)
         im1, im2, im3 = st.columns([0.3,1,0.3])
         with im2:
             st.image("images/AlgoFit2.png", width=600)
         st.write("")
         container2 = st.container(vertical_alignment = "center", border=False)
         with container2:
-            # Botón Recomendar centrado
+            # Boton Recomendar
             b1, b2, b3 = st.columns([2.3,3,2])
             with b2:
                 if st.button("Recomendar"):
