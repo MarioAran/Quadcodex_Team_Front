@@ -1,7 +1,7 @@
 import streamlit as st
 from colores import Colores_class
 
-st.set_page_config(page_title="Página Principal", layout="centered")
+st.set_page_config(page_title="AlgoFit-Lobby", layout="centered")
 colores = Colores_class()
 
 # Ocultar sidebar
