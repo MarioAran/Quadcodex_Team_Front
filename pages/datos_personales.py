@@ -157,7 +157,14 @@ st.markdown(f"""
             border: 3px solid {colores.get_botones_1()} !important;
             border-radius: 6px !important;
         }}
-'
+        
+        /* Caja central (donde está el número) */
+        div[data-testid="stNumberInput"] div[data-baseweb="input"] > div {{
+            background-color: {colores.get_botones_2()} !important;
+            border: 3px solid {colores.get_botones_1()} !important;
+            border-radius: 6px !important;
+        }}
+
         /* Input real */
         div[data-testid="stNumberInput"] input {{
             background-color: {colores.get_botones_2()} !important;
