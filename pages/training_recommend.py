@@ -188,7 +188,7 @@ for i, exercise in enumerate(recs):
     )
 
     with container_rec:
-        cols = st.columns([1.5, 3, 2, 2, 2],vertical_alignment= "center")
+        cols = st.columns([1.5, 3, 2, 2, 2], vertical_alignment= "center")
 
         with cols[0]:
             img_url = get_muscle_image(exercise["muscles"])
