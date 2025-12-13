@@ -313,7 +313,7 @@ with st.form("perfil_gym_form"):
             )
         )
 
-        num_default = 6
+        num_default = 5
         cantidad = st.selectbox(
             "Number of exercises",
             list(range(1, 11)),  # genera la lista [1, 2, ..., 10]

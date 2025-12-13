@@ -141,14 +141,12 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 container = st.container(key="my_blue_container",vertical_alignment = "center", border=True )
 
-usuario = st.session_state["usuario"]
 
 with container:
     # ---------- Botón volver ----------
     if st.button("⬅ Back to Main Page"):
         st.switch_page("pages/menu.py")
 
-    usuario = st.session_state["usuario"]
 
     # ---------- Crear columnas: imagen izquierda, contenido derecha ----------
     cols_layout = st.columns([0.5, 3])  # 1 parte para imagen, 3 partes para contenido
@@ -165,6 +163,7 @@ with container:
         if "recomendaciones" not in st.session_state:
             st.error("❌ No data received. Please complete your profile first.")
             st.stop()
+        usuario = st.session_state["usuario"]
 
         data = st.session_state["recomendaciones"]
         user = data.get("user_data", {})
