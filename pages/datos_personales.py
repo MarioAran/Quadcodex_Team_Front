@@ -33,11 +33,16 @@ st.markdown("""
 
 st.markdown(f"""
     <style>
+        /* Fondo general */
+        .stApp {{
+            background-color: {colores.get_fondo_general()};
+        }}
+
         .block-container {{
             margin-top: 50px;
             padding-top: 2rem;
             padding-bottom: 2rem;
-            background-color: rgba(225, 228, 246, 0.85); /* azul claro semi-transparente */
+            background-color: {colores.get_cajas_principales()}; /* azul claro semi-transparente */
             border-radius: 15px;
         }}
 
@@ -46,21 +51,223 @@ st.markdown(f"""
             font-size: 20px;
             font-weight: bold;
             border-radius: 10px;
-            background-color: {colores.get_oscuro()};
+            background-color: {colores.get_botones_1()};
             color: white;
-            border: 2px solid {colores.get_medio()};
+            border: 2px solid {colores.get_botones_2()};
             transition: 0.2s ease-in-out;
         }}
 
         div.stButton > button:hover {{
-            background-color: {colores.get_medio()};
+            background-color: {colores.get_botones_2()};
             color: black;
-            border: 2px solid {colores.get_oscuro()};
+            border: 2px solid {colores.get_botones_1()};
         }}
-    </style>
+
+            /* =============================
+        LABELS (títulos de inputs)
+        ============================== */
+        label {{
+            font-weight: 600 !important;
+            color: {colores.get_fondo_general()} !important;
+            font-size: 18px !important;
+        }}
+
+        /* =============================
+        CONTENEDORES DE INPUTS
+        ============================== */
+        .stTextInput, .stNumberInput, .stSelectbox {{
+            background-color: {colores.get_cajas_terciarias()};
+            padding: 10px 12px 5px 12px;
+            border-radius: 10px;
+            border: 2px solid {colores.get_botones_2()};
+        }}
+
+        /* =============================
+        INPUTS DE TEXTO Y NÚMEROS
+        ============================== */
+        input {{
+            background-color: {colores.get_botones_2()};
+            padding: 8px 10px !important;
+        }}
+
+        input:focus {{
+            border-color: {colores.get_botones_1()} !important;
+            background-color: {colores.get_botones_2};
+        }}
+
+
+        /* ==========================================
+       SELECTBOX (Caja principal cerrada)
+        ========================================== */
+        div[data-baseweb="select"] > div {{
+            background-color: {colores.get_botones_2()} !important;
+            border: 2px solid {colores.get_botones_1()} !important;
+            border-radius: 6px !important;
+            color: black !important;
+            transition: 0.2s ease-in-out;
+        }}
+
+        /* Focus borde */
+        div[data-baseweb="select"]:focus-within {{
+            border: 3px solid white !important;
+            border-radius: 6px !important;
+            box-shadow: none !important;
+        }}
+
+        /* Hover */
+        div[data-baseweb="select"]:hover {{
+            border-color: white !important;
+        }}
+
+        /* =============================
+        DROPDOWN DEL SELECTBOX
+        ============================== */
+        ul[role="listbox"] {{
+            background-color: {colores.get_botones_2()};
+            border-radius: 6px;
+            border: 1px solid {colores.get_botones_1()};
+        }}
+
+
+        li[role="option"]:hover {{
+            background-color: white !important;
+            color: black !important;
+        }}
+
+        /* =============================
+        SELECTBOX (real background)
+        ============================= */
+        div[data-baseweb="select"] > div {{
+            background-color: {colores.get_botones_2()} !important;
+            border: 2px solid {colores.get_botones_1()} !important;
+            border-radius: 6px !important;
+        }}
+
+        /* Dropdown */
+        div[role="listbox"] ul {{
+            background-color: {colores.get_botones_2()} !important;
+            border-radius: 6px;
+        }}
+
+        /* =============================
+        NUMBER INPUT (real background)
+        ============================= */
+        div[data-baseweb="input"] > div {{
+            background-color: {colores.get_botones_2()} !important;
+            border: 3px solid {colores.get_botones_1()} !important;
+            border-radius: 6px !important;
+        }}
+'
+        /* Input real */
+        div[data-testid="stNumberInput"] input {{
+            background-color: {colores.get_botones_2()} !important;
+            color: black !important;
+        }}
+
+        /* Botones + y - */
+        div[data-testid="stNumberInput"] button {{
+            background-color: {colores.get_botones_1()} !important;
+            color: white !important;
+            border-left: 1px solid {colores.get_botones_1()} !important;
+        }}
+
+        /* Hover botones */
+        div[data-testid="stNumberInput"] button:hover {{
+            background-color: {colores.get_botones_2()} !important;
+            color: black !important;
+        }}
+
+        /* =============================
+        INPUT DE TEXTO (nombre) – estilo como selectbox
+        ============================= */
+        div[data-baseweb="input"] > div input[type="text"]:focus {{
+            border: 3px solid white !important;
+            outline: none !important;
+            border-radius: 6px !important;
+        }}
+
+        /* =============================
+        INPUT DE TEXTO (nombre) – estilo como selectbox
+        ============================= */
+        div[data-baseweb="input"] > div input[type="text"]:focus {{
+            border: 3px solid white !important;
+            outline: none !important;
+            border-radius: 6px !important;
+        }}
+
+        /* =============================
+        INPUT NUMÉRICO – borde al foco
+        ============================= */
+        div[data-testid="stNumberInput"] input:focus {{
+            border: 3px solid white !important;
+            outline: none !important;
+            border-radius: 6px !important;
+        }}
+
+        /* =============================
+        INPUT DE TEXTO – borde al foco
+        ============================= */
+        div[data-baseweb="input"] > div input[type="text"]:focus {{
+            border: 3px solid white !important;
+            box-shadow: none !important;
+            outline: none !important;
+            border-radius: 6px !important;
+        }}
+
+        /* =============================
+        INPUT NUMÉRICO – borde al foco
+        ============================= */
+        div[data-testid="stNumberInput"] input:focus {{
+            border: 3px solid white !important;
+            outline: none !important;
+            border-radius: 6px !important;
+        }}
+
+        /* =============================
+        SELECTBOX – borde al foco
+        ============================= */
+        div[data-baseweb="select"]:focus-within {{
+            border: 3px solid white !important;
+            border-radius: 6px !important;
+        }}
+
+        /* =============================
+        INPUT DE TEXTO – borde al foco
+        ============================= */
+        div[data-baseweb="input"] > div input[type="text"]:focus {{
+            border: 3px solid white !important;
+            outline: none !important;
+            border-radius: 6px !important;
+        }}
+
+        /* =============================
+        INPUT NUMÉRICO – borde al foco
+        ============================= */
+        div[data-testid="stNumberInput"] input:focus {{
+            border: 3px solid white !important;
+            outline: none !important;
+            border-radius: 6px !important;
+        }}
+
+        /* =============================
+        SELECTBOX – borde al foco
+        ============================= */
+        div[data-baseweb="select"]:focus-within {{
+            border: 3px solid white !important;
+            border-radius: 6px !important;
+        }}
+        </style>
 """, unsafe_allow_html=True)
 
+css = f"""
+<style>
+    [data-testid="stForm"] {{
+        background-color: {colores.get_cajas_secundarias()};
+    }}
+</style>
+"""
 
+st.write(css, unsafe_allow_html=True)
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # ==============================
@@ -147,7 +354,6 @@ st.markdown("Fill your personal information below.")
 gestor = Gestor_Usuario()
 
 with st.form("perfil_gym_form"):
-
     st.header("Personal Data")
     col1, col2 = st.columns(2)
 
@@ -213,7 +419,7 @@ with st.form("perfil_gym_form"):
         "Intermediate (6-12 months)",
         "Expert (>12 months)"
     ])
-
+    
     enviar = st.form_submit_button("Send to recommend")
 
 # ==========================

@@ -19,14 +19,14 @@ st.markdown(f"""
     <style>
         /* Fondo general */
         .stApp {{
-            background-color: {colores.get_blanco()};
+            background-color: {colores.get_fondo_general()};
         }}
 
         /* Contenedor principal */
         .block-container {{
-            margin-top: 50px;  /* <-- separa del borde superior */
+            margin-top: 50px; 
             padding-top: 2rem;
-            background-color: {colores.get_claro()};
+            background-color: {colores.get_cajas_principales()};
             border-radius: 15px;
             padding-bottom: 1rem;
         }}
@@ -37,16 +37,16 @@ st.markdown(f"""
             font-size: 20px;
             font-weight: bold;
             border-radius: 10px;
-            background-color: {colores.get_oscuro()};
+            background-color: {colores.get_botones_1()};
             color: white;
-            border: 2px solid {colores.get_claro()};
+            border: 2px solid {colores.get_botones_2()};
             transition: 0.2s ease-in-out;
         }}
 
         div.stButton > button:hover {{
-            background-color: {colores.get_claro()};
+            background-color: {colores.get_botones_2()};
             color: black;
-            border: 2px solid {colores.get_claro()};
+            border: 2px solid {colores.get_botones_1()};
         }}
 
         /* Ocultar barra superior */
