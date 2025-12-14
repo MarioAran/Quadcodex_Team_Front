@@ -1,4 +1,6 @@
 import streamlit as st
+import requests
+
 from colores import Colores_class
 
 MUSCLE_MAP = {
@@ -178,6 +180,9 @@ with container:
 #st.write("---")
 
 # ---------- Mostrar ejercicios en tarjetas ----------
+# ---------- Mostrar ejercicios en tarjetas ----------
+API_URL = "https://quadcodex-team-back.onrender.com/update"  # ajusta si usas otro host
+
 for i, exercise in enumerate(recs):
 
     container_rec = st.container(
@@ -187,7 +192,7 @@ for i, exercise in enumerate(recs):
     )
 
     with container_rec:
-        cols = st.columns([1, 3, 1, 1, 2], vertical_alignment= "center")
+        cols = st.columns([1, 3, 1, 1, 2], vertical_alignment="center")
 
         with cols[0]:
             img_url = get_muscle_image(exercise["muscles"])
@@ -205,11 +210,39 @@ for i, exercise in enumerate(recs):
             st.markdown(f"**Rating:** {min(exercise['rating_score'], 10.0):.1f}/10")
 
         with cols[4]:
-            st.slider(
-                "**How much did you like the exercise?**",
-                min_value=0.0,
-                max_value=10.0,
-                step=0.1,
-                value=0.0,
-                key=f"slider_{i}"
-            )
+            col_slider, col_button = st.columns([2, 1], vertical_alignment="center")
+
+            with col_slider:
+                rating_value = st.slider(
+                    "Your rating",
+                    min_value=0.0,
+                    max_value=10.0,
+                    step=0.1,
+                    value=0.0,
+                    key=f"slider_{i}"
+                )
+                if st.button("Send ⭐", key=f"send_{i}"):
+
+                    payload = {
+                        "id_usuario": st.session_state["id_usuario"],
+                        "genero": user["genero"],
+                        "edad": user["edad"],
+                        "peso": user["peso"],
+                        "altura": user["altura"],
+                        "id_ejercicio": exercise["id_ejercicio"],
+                        "valoracion": rating_value
+                    }
+
+
+
+
+                    try:
+                        response = requests.post(API_URL, json=payload, timeout=5)
+
+                        if response.status_code == 200:
+                            st.success("✅ Rating sent successfully")
+                        else:
+                            st.error(f"❌ Error: {response.json().get('mensaje','Unknown error')}")
+
+                    except Exception as e:
+                        st.error(f"❌ API connection error: {str(e)}")

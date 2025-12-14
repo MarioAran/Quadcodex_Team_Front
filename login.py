@@ -5,10 +5,10 @@ import requests
 from colores import Colores_class
 
 # Funcion para mantener el render abierto
-def keep_server_alive(payload):
+def keep_server_alive():
     while True:
         try:
-            requests.get("https://quadcodex-team-back.onrender.com/health", json=payload)
+            requests.get("https://quadcodex-team-back.onrender.com/health", timeout=10)
         except Exception as e:
             print("Error keeping server alive:", e)
         time.sleep(30)
@@ -193,19 +193,33 @@ b1, b2, b3 = st.columns([3.2,3,2])
 with b2:
     if st.button("Login"):
         try:
-            # Inicio de sesion con sus llamadas
             payload = {"dni": user}
-            resp = requests.post("https://quadcodex-team-back.onrender.com/login", json=payload)
-
-            if "server_pinger_started" not in st.session_state:
-                thread = threading.Thread(target=keep_server_alive, args=(payload,), daemon=True)
-                thread.start()
-                st.session_state["server_pinger_started"] = True
+            resp = requests.post(
+                "https://quadcodex-team-back.onrender.com/login",
+                json=payload,
+                timeout=10
+            )
 
             if resp.status_code == 200:
                 data = resp.json()
+
+                # 🔐 Guardar usuario completo
                 st.session_state["user"] = data["usuario"]
+
+                # ✅ GUARDAR EL ID CORRECTAMENTE
+                st.session_state["id_usuario"] = data["usuario"]["id_user"]
+
+                # 🫀 Mantener backend despierto (solo una vez)
+                if "server_pinger_started" not in st.session_state:
+                    thread = threading.Thread(
+                        target=keep_server_alive,
+                        daemon=True
+                    )
+                    thread.start()
+                    st.session_state["server_pinger_started"] = True
+
                 st.switch_page("pages/menu.py")
+
             else:
                 st.error(f"API error {resp.status_code}: {resp.text}")
 
