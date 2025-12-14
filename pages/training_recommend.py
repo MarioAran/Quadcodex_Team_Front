@@ -23,7 +23,7 @@ MUSCLE_IMAGES = {
     "shoulders": "images/AlgoFit_Shoulders.png",
     "biceps": "images/AlgoFit_Biceps.png",
     "triceps": "images/AlgoFit_Triceps.png",
-    "glutes": "images/AlgoFit_Glutes",
+    "glutes": "images/AlgoFit_Glutes.png",
 }
 
 DEFAULT_IMAGE = "https://via.placeholder.com/80x80.png?text=IMG"
@@ -172,7 +172,8 @@ with container:
         recs = data.get("recomendaciones", [])
 
         # ---------- INVERTIR EL ORDEN ----------
-        recs = recs[::-1]
+        recs = sorted(recs, key=lambda x: x.get("rating_score", 0), reverse=True)
+
 
         st.markdown(f"**User:** {usuario.Nombre} {usuario.Apellido} | **Gender:** {usuario.Genero} | Age: {usuario.Edad} | Height: {usuario.Altura} cm | Weight: {usuario.Peso} kg")
         st.markdown(f"**Level:** {usuario.Nivel} | **Exercises Recommended:** {len(st.session_state.get('recomendaciones', {}).get('recomendaciones', []))}")
