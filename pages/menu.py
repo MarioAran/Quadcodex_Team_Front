@@ -28,7 +28,7 @@ st.markdown(f"""
         .block-container {{
             margin-top: 50px; 
             padding-top: 2rem;
-            background-color: {colores.get_cajas_principales()};
+            background-color: {colores.get_cajas_principales_trans()};
             border-radius: 15px;
             padding-bottom: 1rem;
         }}
