@@ -130,34 +130,39 @@ st.markdown("""
 
 b1, b2, b3 = st.columns([1.7,6.5,1.7])
 with b2:
-    st.title("Welcome to AlgoGym")
+    t1, t2, t3 = st.columns([0.85,9,0.5])
+    with t2:
+        st.title("Welcome to AlgoFit")
     user = st.text_input("User")
     pwd = st.text_input("Password", type="password")
-    if st.button("Login"):
-        try:
-            payload = {"dni": user}
-            resp = requests.post(
-                "https://quadcodex-team-back.onrender.com/login",
-                json=payload,
-                timeout=10
-            )
-            if resp.status_code == 200:
-                data = resp.json()
-                st.session_state["user"] = data["usuario"]
-                st.session_state["id_usuario"] = data["usuario"]["id_user"]
-                if "server_pinger_started" not in st.session_state:
-                    thread = threading.Thread(target=keep_server_alive, daemon=True)
-                    thread.start()
-                    st.session_state["server_pinger_started"] = True
-                st.switch_page("pages/menu.py")
-            else:
-                st.markdown("""
-                <div class="custom-error">
-                    ❌ Usuario incorrecto, vuelva a intentarlo
-                </div>
-                """, unsafe_allow_html=True)
-        except Exception as e:
-            st.error(f"Could not connect to API: {e}")
+    
+    b4, b5, b6 = st.columns([4.5,6.5,1.7])
+    with b5:
+        if st.button("Login"):
+            try:
+                payload = {"dni": user}
+                resp = requests.post(
+                    "https://quadcodex-team-back.onrender.com/login",
+                    json=payload,
+                    timeout=10
+                )
+                if resp.status_code == 200:
+                    data = resp.json()
+                    st.session_state["user"] = data["usuario"]
+                    st.session_state["id_usuario"] = data["usuario"]["id_user"]
+                    if "server_pinger_started" not in st.session_state:
+                        thread = threading.Thread(target=keep_server_alive, daemon=True)
+                        thread.start()
+                        st.session_state["server_pinger_started"] = True
+                    st.switch_page("pages/menu.py")
+                else:
+                    st.markdown("""
+                    <div class="custom-error">
+                        ❌ Usuario incorrecto, vuelva a intentarlo
+                    </div>
+                    """, unsafe_allow_html=True)
+            except Exception as e:
+                st.error(f"Could not connect to API: {e}")
     st.markdown("""
     <div class="social-icons">
         <img src="https://upload.wikimedia.org/wikipedia/commons/archive/c/c1/20210618182605%21Google_%22G%22_logo.svg" alt="Google" title="Login with Google">
