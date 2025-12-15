@@ -10,7 +10,8 @@ def keep_server_alive():
             requests.get("https://quadcodex-team-back.onrender.com/health", timeout=10)
         except Exception as e:
             print("Error keeping server alive:", e)
-        time.sleep(30)
+        time.sleep(58)
+
 st.set_page_config(page_title="AlgoFit-Login", layout="centered")
 colores = Colores_class()
 hide_menu_style = """
@@ -31,34 +32,27 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 st.markdown(f"""
 <style>
-/* Imagen de fondo */
 .stApp {{
     background-image: url("https://public.dir.cat/api/media/file/web-1080x1920-dec-1920x1080.gif");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
 }}
-
-/* Contenedor principal */
 .block-container {{
     margin-top: 0;
     padding: 0;
     background-color: transparent;
     border-radius: 18px;
-    height: 100vh; /* toda la pantalla */
+    height: 100vh;
     display: flex;
-    justify-content: center; /* horizontal */
-    align-items: center;    /* vertical */
+    justify-content: center;
+    align-items: center;
 }}
-
-/* Labels */
 label {{
     font-weight: 600 !important;
     color: {colores.get_fondo_general()} !important;
     font-size: 18px !important;
 }}
-
-/* Inputs */
 .stTextInput {{
     background-color: {colores.get_cajas_terciarias()};
     padding: 10px 12px 6px 10px;
@@ -77,8 +71,6 @@ div[data-baseweb="input"] input {{
     font-size: 16px !important;
     padding: 12px !important;
 }}
-
-/* Botones */
 div.stButton > button {{
     width: 100%;
     padding: 15px 40px;
@@ -95,8 +87,6 @@ div.stButton > button:hover {{
     color: black;
     border: 2px solid {colores.get_botones_1()};
 }}
-
-/* Logos de login social */
 .social-icons {{
     display: flex;
     justify-content: center;
@@ -117,91 +107,30 @@ div.stButton > button:hover {{
 
 st.markdown("""
 <style>
-/* Botón flotante "Contacts" fijo abajo a la derecha */
-.contact-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #A1D6E2;
-    color: white;
-    padding: 14px 22px;
-    border-radius: 10px;
+.custom-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
     font-size: 16px;
-    font-weight: bold;
-    text-decoration: none;
-    cursor: pointer;
-    z-index: 9999;
-    transition: all 0.2s ease-in-out;
-}
-.contact-button:hover {
-    background-color: #1995AD;
-    transform: scale(1.05);
-}
-
-/* Panel de contactos */
-.contact-panel {
-    position: fixed;
-    bottom: 70px; /* arriba del botón */
-    right: 20px;
-    width: 320px;
-    background-color: #A1D6E2;
-    border-radius: 15px;
-    padding: 20px;
-    display: none;
-    flex-direction: column;
-    gap: 15px;
-    z-index: 9999;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-}
-
-/* Cada recuadro/link dentro del panel */
-.contact-box {
-    background-color: white;
-    color: black;
-    padding: 16px;
-    border-radius: 12px;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    transition: background-color 0.2s, color 0.2s, transform 0.2s;
-    cursor: pointer;
-}
-.contact-box:hover {
-    background-color: #1995AD;
+    border-radius: 8px;
     color: white;
-    transform: scale(1.05);
+    border: none;
+    margin-bottom: 15px;
+    background: #020224;
+    background: linear-gradient(4deg, rgba(2, 2, 36, 0.57) 72%, rgba(0, 212, 255, 1) 100%);
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+.custom-button:hover {
+    background-color: #333333; /* Cambia color al pasar el mouse */
 }
 </style>
-
-<!-- Botón flotante -->
-<div class="contact-button" onclick="togglePanel()">Contacts</div>
-
-<!-- Panel de contactos -->
-<div class="contact-panel" id="contactPanel">
-    <a href="https://docs.google.com/document/d/1PVFGo_wejt-lQle5M6s0c27xSXvV65I2l97M_cnZuEU/edit?usp=sharing"
-       target="_blank" class="contact-box">Documentación</a>
-    <a href="https://www.google.com" target="_blank" class="contact-box">Google</a>
-    <a href="https://www.facebook.com" target="_blank" class="contact-box">Facebook</a>
-    <a href="https://www.twitter.com" target="_blank" class="contact-box">X/Twitter</a>
-</div>
-
-<script>
-function togglePanel() {
-    var panel = document.getElementById("contactPanel");
-    if (panel.style.display === "flex") {
-        panel.style.display = "none";
-    } else {
-        panel.style.display = "flex";
-    }
-}
-</script>
 """, unsafe_allow_html=True)
 
-b1, b2, b3 = st.columns([3,5,3])
+b1, b2, b3 = st.columns([1.7,6.5,1.7])
 with b2:
-    st.title("Welcome Back")
+    st.title("Welcome to AlgoGym")
     user = st.text_input("User")
     pwd = st.text_input("Password", type="password")
     if st.button("Login"):
@@ -212,17 +141,14 @@ with b2:
                 json=payload,
                 timeout=10
             )
-
             if resp.status_code == 200:
                 data = resp.json()
                 st.session_state["user"] = data["usuario"]
                 st.session_state["id_usuario"] = data["usuario"]["id_user"]
-
                 if "server_pinger_started" not in st.session_state:
                     thread = threading.Thread(target=keep_server_alive, daemon=True)
                     thread.start()
                     st.session_state["server_pinger_started"] = True
-
                 st.switch_page("pages/menu.py")
             else:
                 st.markdown("""
@@ -230,14 +156,58 @@ with b2:
                     ❌ Usuario incorrecto, vuelva a intentarlo
                 </div>
                 """, unsafe_allow_html=True)
-
         except Exception as e:
             st.error(f"Could not connect to API: {e}")
-
-st.markdown("""
-<div class="social-icons">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/archive/c/c1/20210618182605%21Google_%22G%22_logo.svg" alt="Google" title="Login with Google">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" title="Login with Facebook">
-    <img src="https://abs.twimg.com/responsive-web/client-web/icon-default.522d363a.png" alt="X" title="Login with X">
-</div>
-""", unsafe_allow_html=True)
+    st.markdown("""
+    <div class="social-icons">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/archive/c/c1/20210618182605%21Google_%22G%22_logo.svg" alt="Google" title="Login with Google">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" title="Login with Facebook">
+        <img src="https://abs.twimg.com/responsive-web/client-web/icon-default.522d363a.png" alt="X" title="Login with X">
+    </div>
+    """, unsafe_allow_html=True)
+    with st.expander("Contact"):
+        col1, col2 = st.columns(2)
+        with col1 :
+                st.markdown("""
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button class="custom-button">
+                        <a href="https://www.linkedin.com/in/gabriel-alejandro-michielon-perez/" target="_blank">
+                            <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="24" height="24">
+                                Gabriel Alejandro Michielon Perez 
+                        </a>
+                    </button>
+                    <button class="custom-button">
+                        <a href="https://www.linkedin.com/in/pablo-mesa-valladares/" target="_blank">
+                            <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="24" height="24">
+                            Pablo Mesa Valladares
+                        </a>
+                    </button>
+                    <button class="custom-button">
+                        <a href="https://www.linkedin.com/in/alexis-barros-vera-386a0b398/" target="_blank">
+                            <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="24" height="24">
+                            Alexis Barros Vera
+                        </a>
+                    </button>
+                    <button class="custom-button">
+                        <a href="https://www.linkedin.com/in/mario-german-arancibia-perez/" target="_blank">
+                            <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="24" height="24">
+                            Mario German Arancibia Perez
+                        </a>
+                    </button>
+                </div>
+                """, unsafe_allow_html=True)
+        with col2:
+                st.markdown("""
+                        <button class="custom-button">
+                            <a href="https://github.com/MarioAran/Quadcodex_Team_Front" target="_blank">
+                                <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="24" height="24">
+                                    Github Frontend
+                            </a>
+                            </button>
+                        <button class="custom-button">
+                            <a href="https://github.com/MarioAran/Quadcodex_Team_Back" target="_blank">
+                                <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="24" height="24">
+                                    Github Backend
+                            </a>
+                        </button>
+                """, unsafe_allow_html=True)
