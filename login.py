@@ -54,7 +54,8 @@ label {{
     font-size: 18px !important;
 }}
 .stTextInput {{
-    background-color: {colores.get_cajas_terciarias()};
+    background: #7a7a7a;
+    background: linear-gradient(54deg,rgba(122, 122, 122, 1) 0%, rgba(163, 163, 164, 1) 100%);
     padding: 10px 12px 6px 10px;
     border-radius: 10px;
     border: 2px solid {colores.get_botones_2()};
