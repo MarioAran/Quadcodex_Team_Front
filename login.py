@@ -4,7 +4,6 @@ import threading
 import requests
 from colores import Colores_class
 
-# Funcion para mantener el render abierto
 def keep_server_alive():
     while True:
         try:
@@ -12,53 +11,44 @@ def keep_server_alive():
         except Exception as e:
             print("Error keeping server alive:", e)
         time.sleep(30)
-
 st.set_page_config(page_title="AlgoFit-Login", layout="centered")
 colores = Colores_class()
-
-# Diseño
-# Ocultar sidebar
 hide_menu_style = """
-    <style>
-        [data-testid="stSidebar"] {display: none !important;}
-        [data-testid="stSidebarNav"] {display: none !important;}
-        section[data-testid="stSidebar"] {display: none !important;}
-        div[data-testid="expandedSidebar"] {display: none !important;}
-    </style>
+<style>
+    [data-testid="stSidebar"],
+    [data-testid="stSidebarNav"],
+    section[data-testid="stSidebar"],
+    div[data-testid="expandedSidebar"] {
+        display: none !important;
+    }
+
+    header[data-testid="stHeader"] {
+        display: none !important;
+    }
+</style>
 """
-
-# Ocultar barra superior
-st.markdown("""
-    <style>
-        /* Ocultar barra superior */
-        header[data-testid="stHeader"] {
-            display: none !important;
-        }
-
-        /* Evitar padding superior extra */
-        .block-container {
-            padding-top: 2rem;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
-# Estilo general
 st.markdown(f"""
 <style>
-
-/* Fondo general */
+/* Imagen de fondo */
 .stApp {{
-    background-color: {colores.get_fondo_general()};
+    background-image: url("https://public.dir.cat/api/media/file/web-1080x1920-dec-1920x1080.gif");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }}
 
-/* Contenedor principal centrado */
+/* Contenedor principal */
 .block-container {{
-    margin-top: 50px;
-    padding: 2rem;
-    background-color: {colores.get_cajas_principales()};
+    margin-top: 0;
+    padding: 0;
+    background-color: transparent;
     border-radius: 18px;
+    height: 100vh; /* toda la pantalla */
+    display: flex;
+    justify-content: center; /* horizontal */
+    align-items: center;    /* vertical */
 }}
 
 /* Labels */
@@ -68,7 +58,7 @@ label {{
     font-size: 18px !important;
 }}
 
-/* Contenedor de inputs */
+/* Inputs */
 .stTextInput {{
     background-color: {colores.get_cajas_terciarias()};
     padding: 10px 12px 6px 10px;
@@ -76,31 +66,16 @@ label {{
     border: 2px solid {colores.get_botones_2()};
     margin-bottom: 15px;
 }}
-
-/* Inputs de textos y numeros */
 div[data-baseweb="input"] > div {{
     background-color: {colores.get_botones_2()} !important;
     border: 2px solid {colores.get_botones_1()} !important;
     border-radius: 8px !important;
 }}
-
 div[data-baseweb="input"] input {{
     background-color: {colores.get_botones_2()} !important;
     color: black !important;
     font-size: 16px !important;
     padding: 12px !important;
-}}
-
-/* Focus de los inputs */
-div[data-baseweb="input"]:focus-within {{
-    border: 3px solid white !important;
-    border-radius: 8px !important;
-    box-shadow: none !important;
-}}
-
-div[data-baseweb="input"] input:focus {{
-    outline: none !important;
-    box-shadow: none !important;
 }}
 
 /* Botones */
@@ -115,82 +90,120 @@ div.stButton > button {{
     border: 2px solid {colores.get_botones_2()};
     transition: 0.2s ease-in-out;
 }}
-
 div.stButton > button:hover {{
     background-color: {colores.get_botones_2()};
     color: black;
     border: 2px solid {colores.get_botones_1()};
 }}
 
-h1 {{
-    text-align: center;
+/* Logos de login social */
+.social-icons {{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
 }}
-
-/* Boton del ojo */
-div[data-baseweb="input"] button {{
-    background-color: transparent !important;
-    border-radius: 6px;
+.social-icons img {{
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: transform 0.2s;
 }}
-
-/* SVG del ojo */
-div[data-baseweb="input"] button svg {{
-    fill: {colores.get_botones_1()} !important;
-    opacity: 0.9;
+.social-icons img:hover {{
+    transform: scale(1.2);
 }}
-
-/* Hover */
-div[data-baseweb="input"] button:hover svg {{
-    fill: white !important;
-    opacity: 1;
-}}
-
-/* Focus */
-div[data-baseweb="input"] button:focus {{
-    outline: none !important;
-    box-shadow: none !important;
-}}
-
+</style>
 """, unsafe_allow_html=True)
 
 st.markdown("""
-    <style>
-        .contact-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #A1D6E2;
-            color: white;
-            padding: 14px 22px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.2s ease-in-out;
-            z-index: 9999;
-        }
+<style>
+/* Botón flotante "Contacts" fijo abajo a la derecha */
+.contact-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #A1D6E2;
+    color: white;
+    padding: 14px 22px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    z-index: 9999;
+    transition: all 0.2s ease-in-out;
+}
+.contact-button:hover {
+    background-color: #1995AD;
+    transform: scale(1.05);
+}
 
-        .contact-button:hover {
-            background-color: #1995AD;
-            transform: scale(1.05);
-            color: white;
-        }
-    </style>
+/* Panel de contactos */
+.contact-panel {
+    position: fixed;
+    bottom: 70px; /* arriba del botón */
+    right: 20px;
+    width: 320px;
+    background-color: #A1D6E2;
+    border-radius: 15px;
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 9999;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
 
+/* Cada recuadro/link dentro del panel */
+.contact-box {
+    background-color: white;
+    color: black;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+    cursor: pointer;
+}
+.contact-box:hover {
+    background-color: #1995AD;
+    color: white;
+    transform: scale(1.05);
+}
+</style>
+
+<!-- Botón flotante -->
+<div class="contact-button" onclick="togglePanel()">Contacts</div>
+
+<!-- Panel de contactos -->
+<div class="contact-panel" id="contactPanel">
     <a href="https://docs.google.com/document/d/1PVFGo_wejt-lQle5M6s0c27xSXvV65I2l97M_cnZuEU/edit?usp=sharing"
-       target="_blank"
-       class="contact-button">
-        Contacts
-    </a>
+       target="_blank" class="contact-box">Documentación</a>
+    <a href="https://www.google.com" target="_blank" class="contact-box">Google</a>
+    <a href="https://www.facebook.com" target="_blank" class="contact-box">Facebook</a>
+    <a href="https://www.twitter.com" target="_blank" class="contact-box">X/Twitter</a>
+</div>
+
+<script>
+function togglePanel() {
+    var panel = document.getElementById("contactPanel");
+    if (panel.style.display === "flex") {
+        panel.style.display = "none";
+    } else {
+        panel.style.display = "flex";
+    }
+}
+</script>
 """, unsafe_allow_html=True)
 
-st.markdown(hide_menu_style, unsafe_allow_html=True)
-
-st.title("Welcome Back")
-user = st.text_input("User")
-pwd = st.text_input("Password", type="password")
-
-b1, b2, b3 = st.columns([3.2,3,2])
+b1, b2, b3 = st.columns([3,5,3])
 with b2:
+    st.title("Welcome Back")
+    user = st.text_input("User")
+    pwd = st.text_input("Password", type="password")
     if st.button("Login"):
         try:
             payload = {"dni": user}
@@ -202,26 +215,29 @@ with b2:
 
             if resp.status_code == 200:
                 data = resp.json()
-
-                # Guardar usuario completo
                 st.session_state["user"] = data["usuario"]
-
-                # Guarda el ID correctamente
                 st.session_state["id_usuario"] = data["usuario"]["id_user"]
 
-                # Mantener backend despierto solo una vez
                 if "server_pinger_started" not in st.session_state:
-                    thread = threading.Thread(
-                        target=keep_server_alive,
-                        daemon=True
-                    )
+                    thread = threading.Thread(target=keep_server_alive, daemon=True)
                     thread.start()
                     st.session_state["server_pinger_started"] = True
 
                 st.switch_page("pages/menu.py")
-
             else:
-                st.error(f"API error {resp.status_code}: {resp.text}")
+                st.markdown("""
+                <div class="custom-error">
+                    ❌ Usuario incorrecto, vuelva a intentarlo
+                </div>
+                """, unsafe_allow_html=True)
 
         except Exception as e:
             st.error(f"Could not connect to API: {e}")
+
+st.markdown("""
+<div class="social-icons">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/archive/c/c1/20210618182605%21Google_%22G%22_logo.svg" alt="Google" title="Login with Google">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" title="Login with Facebook">
+    <img src="https://abs.twimg.com/responsive-web/client-web/icon-default.522d363a.png" alt="X" title="Login with X">
+</div>
+""", unsafe_allow_html=True)
