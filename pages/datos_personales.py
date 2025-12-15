@@ -6,7 +6,7 @@ from colores import Colores_class
 st.set_page_config(page_title="AlgoFit-Personal data", layout="centered")
 colores = Colores_class()
 
-### Estetica
+# Diseño
 # Ocultar barra de arriba
 hide_menu_style = """
     <style>
@@ -214,7 +214,7 @@ css = f"""
 st.write(css, unsafe_allow_html=True)
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
-### Datos de Login
+# Datos de Login
 usuario_api = st.session_state.get("user", {})
 
 nombre_api = usuario_api.get("nombre", "")
@@ -226,7 +226,7 @@ edad_api = usuario_api.get("edad", "")
 altura_api = usuario_api.get("altura", "")
 peso_api = usuario_api.get("peso", "")
 
-### Clase de usuario
+# Clase de usuario
 class Usuario_datos:
     def __init__(self, nombre, apellido, edad, genero, altura, peso, objetivo, nivel):
         self.Nombre = nombre
@@ -238,7 +238,7 @@ class Usuario_datos:
         self.Objetivo = objetivo
         self.Nivel = nivel
 
-### Gestor de clase de usuario
+# Gestor de clase de usuario
 class Gestor_Usuario:
     def get_usuario(self, nombre_completo, edad, genero, altura, peso, objetivo, nivel):
         nombre, apellido = self.verif_nombre(nombre_completo)
@@ -283,7 +283,7 @@ class Gestor_Usuario:
         return nivel.split("(")[0].strip()
 
 
-### Interfaz
+# Interfaz
 if st.button("⬅ Back to Main Menu"):
     st.switch_page("pages/menu.py")
 
@@ -361,7 +361,7 @@ with st.form("perfil_gym_form"):
     
     enviar = st.form_submit_button("Send to recommend")
 
-### Validacion y envio
+# Validacion y envio
 
 if enviar:
     errores = []
@@ -414,3 +414,4 @@ if enviar:
 
         except Exception as e:
             st.error(f"Could not connect to API: {e}")
+
