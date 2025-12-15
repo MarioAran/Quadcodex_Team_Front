@@ -29,23 +29,15 @@ MUSCLE_IMAGES = {
 DEFAULT_IMAGE = "https://via.placeholder.com/80x80.png?text=IMG"
 
 def get_muscle_image(muscles: list[str]) -> str:
-    """
-    Recibe la lista de músculos de un ejercicio y devuelve
-    la imagen correspondiente al músculo principal.
-    """
 
-    # 1. Recorrer músculos declarados en el ejercicio
     for m in muscles:
         m_clean = m.lower().strip()
 
-        # 2. Buscar en MUSCLE_MAP
         if m_clean in MUSCLE_MAP:
             muscle_key = MUSCLE_MAP[m_clean]
 
-            # 3. Buscar imagen en MUSCLE_IMAGES
             return MUSCLE_IMAGES.get(muscle_key, DEFAULT_IMAGE)
 
-    # 4. Si no encuentra nada, imagen por defecto
     return DEFAULT_IMAGE
 
 st.set_page_config(page_title="AlgoFit-Training Plan", layout="wide")
