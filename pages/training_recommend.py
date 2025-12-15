@@ -145,23 +145,17 @@ container = st.container(key="my_blue_container",vertical_alignment = "center", 
 
 
 with container:
-    # ---------- Botón volver ----------
     if st.button("⬅ Back to Main Page"):
         st.switch_page("pages/menu.py")
 
-
-    # ---------- Crear columnas: imagen izquierda, contenido derecha ----------
-    cols_layout = st.columns([0.5, 3])  # 1 parte para imagen, 3 partes para contenido
+    cols_layout = st.columns([0.5, 3])
 
     with cols_layout[0]:
-        # Imagen del usuario
         st.image("images/AlgoFitTrain.png", width=200)
 
     with cols_layout[1]:
-        # Título y datos
         st.title("Your Personalized Training Plan")
 
-        # ---------- Datos ----------
         if "recomendaciones" not in st.session_state:
             st.error("❌ No data received. Please complete your profile first.")
             st.stop()
@@ -171,18 +165,12 @@ with container:
         user = data.get("user_data", {})
         recs = data.get("recomendaciones", [])
 
-        # ---------- INVERTIR EL ORDEN ----------
         recs = sorted(recs, key=lambda x: x.get("rating_score", 0), reverse=True)
-
 
         st.markdown(f"**User:** {usuario.Nombre} {usuario.Apellido} | **Gender:** {usuario.Genero} | Age: {usuario.Edad} | Height: {usuario.Altura} cm | Weight: {usuario.Peso} kg")
         st.markdown(f"**Level:** {usuario.Nivel} | **Exercises Recommended:** {len(st.session_state.get('recomendaciones', {}).get('recomendaciones', []))}")
 
-#st.write("---")
-
-# ---------- Mostrar ejercicios en tarjetas ----------
-# ---------- Mostrar ejercicios en tarjetas ----------
-API_URL = "https://quadcodex-team-back.onrender.com/update"  # ajusta si usas otro host
+API_URL = "https://quadcodex-team-back.onrender.com/update"
 
 for i, exercise in enumerate(recs):
 
@@ -233,9 +221,6 @@ for i, exercise in enumerate(recs):
                         "id_ejercicio": exercise["id_ejercicio"],
                         "valoracion": rating_value
                     }
-
-
-
 
                     try:
                         response = requests.post(API_URL, json=payload, timeout=5)
