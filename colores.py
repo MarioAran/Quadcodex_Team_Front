@@ -3,9 +3,9 @@ class Colores_class:
     def __init__(self):
         self.__BOTONES_1 = "#1995AD"
         self.__BOTONES_2 = "#A1D6E2"
-        self.__CAJAS_TERCIARIAS = "#909091"
-        self.__CAJAS_SECUNDARIAS = "#A8A6A9"
-        self.__CAJAS_PRINCIPALES = "#BCBABE"
+        self.__CAJAS_TERCIARIAS = "#A3A3A4"
+        self.__CAJAS_SECUNDARIAS = "#B6B5B7"
+        self.__CAJAS_PRINCIPALES = "#D7D6D7"
         self.__CAJAS_PRINCIPALES_TRANS = "#B9E8FF60"
         self.__FONDO_GENERAL = "#F1F1F2"
 
