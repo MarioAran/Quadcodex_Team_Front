@@ -34,9 +34,11 @@ st.markdown("""
 # Estilo del resto
 st.markdown(f"""
     <style>
-        /* Fondo general */
         .stApp {{
-            background-color: {colores.get_fondo_general()};
+            background-image: url("https://static.vecteezy.com/system/resources/previews/006/469/232/non_2x/abstract-white-background-with-halftone-texture-free-vector.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }}
 
         /* Contenedor */

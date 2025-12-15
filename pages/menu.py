@@ -17,9 +17,11 @@ hide_menu_style = f"""
 # Estilo general + botones
 st.markdown(f"""
     <style>
-        /* Fondo general */
         .stApp {{
-            background-color: {colores.get_fondo_general()};
+            background-image: url("https://static.vecteezy.com/system/resources/previews/006/469/232/non_2x/abstract-white-background-with-halftone-texture-free-vector.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }}
 
         /* Contenedor principal */
@@ -59,34 +61,87 @@ st.markdown(f"""
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 st.markdown("""
-    <style>
-        .contact-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #A1D6E2;
-            color: white;
-            padding: 14px 22px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.2s ease-in-out;
-            z-index: 9999;
-        }
+<style>
+/* Botón flotante "Contacts" fijo abajo a la derecha */
+.contact-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #A1D6E2;
+    color: white;
+    padding: 14px 22px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    z-index: 9999;
+    transition: all 0.2s ease-in-out;
+}
+.contact-button:hover {
+    background-color: #1995AD;
+    transform: scale(1.05);
+}
 
-        .contact-button:hover {
-            background-color: #1995AD;
-            transform: scale(1.05);
-            color: white;
-        }
-    </style>
+/* Panel de contactos */
+.contact-panel {
+    position: fixed;
+    bottom: 70px; /* arriba del botón */
+    right: 20px;
+    width: 320px;
+    background-color: #A1D6E2;
+    border-radius: 15px;
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 9999;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
 
+/* Cada recuadro/link dentro del panel */
+.contact-box {
+    background-color: white;
+    color: black;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+    cursor: pointer;
+}
+.contact-box:hover {
+    background-color: #1995AD;
+    color: white;
+    transform: scale(1.05);
+}
+</style>
+
+<!-- Botón flotante -->
+<div class="contact-button" onclick="togglePanel()">Contacts</div>
+
+<!-- Panel de contactos -->
+<div class="contact-panel" id="contactPanel">
     <a href="https://docs.google.com/document/d/1PVFGo_wejt-lQle5M6s0c27xSXvV65I2l97M_cnZuEU/edit?usp=sharing"
-       target="_blank"
-       class="contact-button">
-        Contacts
-    </a>
+       target="_blank" class="contact-box">Documentación</a>
+    <a href="https://www.google.com" target="_blank" class="contact-box">Google</a>
+    <a href="https://www.facebook.com" target="_blank" class="contact-box">Facebook</a>
+    <a href="https://www.twitter.com" target="_blank" class="contact-box">X/Twitter</a>
+</div>
+
+<script>
+function togglePanel() {
+    var panel = document.getElementById("contactPanel");
+    if (panel.style.display === "flex") {
+        panel.style.display = "none";
+    } else {
+        panel.style.display = "flex";
+    }
+}
+</script>
 """, unsafe_allow_html=True)
 
 container = st.container(vertical_alignment = "center", border=False)
