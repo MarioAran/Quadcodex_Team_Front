@@ -16,7 +16,7 @@ def keep_server_alive():
 st.set_page_config(page_title="AlgoFit-Login", layout="centered")
 colores = Colores_class()
 
-#Diseño
+# Diseño
 # Ocultar sidebar
 hide_menu_style = """
     <style>
@@ -203,13 +203,13 @@ with b2:
             if resp.status_code == 200:
                 data = resp.json()
 
-                #Guardar usuario completo
+                # Guardar usuario completo
                 st.session_state["user"] = data["usuario"]
 
-                #Guarda el ID correctamente
+                # Guarda el ID correctamente
                 st.session_state["id_usuario"] = data["usuario"]["id_user"]
 
-                #Mantener backend despierto solo una vez
+                # Mantener backend despierto solo una vez
                 if "server_pinger_started" not in st.session_state:
                     thread = threading.Thread(
                         target=keep_server_alive,
