@@ -301,7 +301,7 @@ if st.button("⬅ Back to Main Menu"):
     st.switch_page("pages/menu.py")
 
 st.markdown('<div class="title-shadow">Before starting!</div>', unsafe_allow_html=True)
-st.markdown("Fill your personal information below.")
+st.markdown('<div class="title-shadow"><h3>Fill your personal information below!</div>', unsafe_allow_html=True)
 
 gestor = Gestor_Usuario()
 

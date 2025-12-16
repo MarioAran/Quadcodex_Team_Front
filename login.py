@@ -187,46 +187,46 @@ with b2:
     with st.expander("Contact"):
         col1, col2 = st.columns(2)
         with col1 :
-                st.markdown("""
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <button class="custom-button">
-                        <a href="https://www.linkedin.com/in/gabriel-alejandro-michielon-perez/" target="_blank">
-                            <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="24" height="24">
-                                Gabriel Alejandro Michielon Perez 
-                        </a>
-                    </button>
-                    <button class="custom-button">
-                        <a href="https://www.linkedin.com/in/pablo-mesa-valladares/" target="_blank">
-                            <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="24" height="24">
-                            Pablo Mesa Valladares
-                        </a>
-                    </button>
-                    <button class="custom-button">
-                        <a href="https://www.linkedin.com/in/alexis-barros-vera-386a0b398/" target="_blank">
-                            <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="24" height="24">
-                            Alexis Barros Vera
-                        </a>
-                    </button>
-                    <button class="custom-button">
-                        <a href="https://www.linkedin.com/in/mario-german-arancibia-perez/" target="_blank">
-                            <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="24" height="24">
-                            Mario German Arancibia Perez
-                        </a>
-                    </button>
-                </div>
-                """, unsafe_allow_html=True)
+            st.markdown("""
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <button class="custom-button">
+                    <a href="https://www.linkedin.com/in/gabriel-alejandro-michielon-perez/" target="_blank">
+                        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="24" height="24">
+                            Gabriel Alejandro Michielon Perez 
+                    </a>
+                </button>
+                <button class="custom-button">
+                    <a href="https://www.linkedin.com/in/pablo-mesa-valladares/" target="_blank">
+                        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="24" height="24">
+                        Pablo Mesa Valladares
+                    </a>
+                </button>
+                <button class="custom-button">
+                    <a href="https://www.linkedin.com/in/alexis-barros-vera-386a0b398/" target="_blank">
+                        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="24" height="24">
+                        Alexis Barros Vera
+                    </a>
+                </button>
+                <button class="custom-button">
+                    <a href="https://www.linkedin.com/in/mario-german-arancibia-perez/" target="_blank">
+                        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="24" height="24">
+                        Mario German Arancibia Perez
+                    </a>
+                </button>
+            </div>
+            """, unsafe_allow_html=True)
         with col2:
-                st.markdown("""
-                        <button class="custom-button">
-                            <a href="https://github.com/MarioAran/Quadcodex_Team_Front" target="_blank">
-                                <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="24" height="24">
-                                    Github Frontend
-                            </a>
-                            </button>
-                        <button class="custom-button">
-                            <a href="https://github.com/MarioAran/Quadcodex_Team_Back" target="_blank">
-                                <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="24" height="24">
-                                    Github Backend
-                            </a>
+            st.markdown("""
+                    <button class="custom-button">
+                        <a href="https://github.com/MarioAran/Quadcodex_Team_Front" target="_blank">
+                            <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="24" height="24">
+                                Github Frontend
+                        </a>
                         </button>
-                """, unsafe_allow_html=True)
+                    <button class="custom-button">
+                        <a href="https://github.com/MarioAran/Quadcodex_Team_Back" target="_blank">
+                            <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="24" height="24">
+                                Github Backend
+                        </a>
+                    </button>
+            """, unsafe_allow_html=True)

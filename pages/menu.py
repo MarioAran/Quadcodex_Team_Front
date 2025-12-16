@@ -60,37 +60,6 @@ st.markdown(f"""
 
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
-st.markdown("""
-    <style>
-        .contact-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #A1D6E2;
-            color: white;
-            padding: 14px 22px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.2s ease-in-out;
-            z-index: 9999;
-        }
-
-        .contact-button:hover {
-            background-color: #1995AD;
-            transform: scale(1.05);
-            color: white;
-        }
-    </style>
-
-    <a href="https://docs.google.com/document/d/1PVFGo_wejt-lQle5M6s0c27xSXvV65I2l97M_cnZuEU/edit?usp=sharing"
-       target="_blank"
-       class="contact-button">
-        Contacts
-    </a>
-""", unsafe_allow_html=True)
-
 container = st.container(vertical_alignment = "center", border=False)
 
 with container:
