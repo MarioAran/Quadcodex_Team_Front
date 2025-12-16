@@ -40,7 +40,7 @@ def get_muscle_image(muscles: list[str]) -> str:
 
     return DEFAULT_IMAGE
 
-st.set_page_config(page_title="AlgoFit-Training Plan", layout="wide")
+st.set_page_config(page_title="AlgoFit V0.1-Training Plan", layout="wide")
 colores = Colores_class()
 
 hide_menu_style = """

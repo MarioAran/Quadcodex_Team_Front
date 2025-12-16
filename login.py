@@ -12,7 +12,7 @@ def keep_server_alive():
             print("Error keeping server alive:", e)
         time.sleep(58)
 
-st.set_page_config(page_title="AlgoFit-Login", layout="centered")
+st.set_page_config(page_title="AlgoFit V0.1-Login", layout="centered")
 colores = Colores_class()
 hide_menu_style = """
 <style>

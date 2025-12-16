@@ -3,7 +3,7 @@ import requests
 from datetime import date
 from colores import Colores_class
 
-st.set_page_config(page_title="AlgoFit-Personal data", layout="centered")
+st.set_page_config(page_title="AlgoFit V0.1-Personal data", layout="centered")
 colores = Colores_class()
 
 # Diseño
