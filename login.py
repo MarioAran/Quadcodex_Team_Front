@@ -129,11 +129,24 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+.title-shadow {
+    font-size: 3rem;
+    font-weight: 650;
+    color: white;
+    text-align: center;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.95);
+    margin-bottom: 20px;
+}
+</style>
+""", unsafe_allow_html=True)
+
 b1, b2, b3 = st.columns([1.7,6.5,1.7])
 with b2:
     t1, t2, t3 = st.columns([0.85,9,0.5])
     with t2:
-        st.title("Welcome to AlgoFit")
+        st.markdown('<div class="title-shadow">Welcome to AlgoFit</div>', unsafe_allow_html=True)
     user = st.text_input("User")
     pwd = st.text_input("Password", type="password")
     

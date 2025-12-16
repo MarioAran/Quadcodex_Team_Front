@@ -112,6 +112,17 @@ st.markdown(f"""
     </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+.title-shadow {
+    font-size: 3rem;
+    font-weight: 650;
+    color: white;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.50);
+}
+</style>
+""", unsafe_allow_html=True)
+
 css = f"""
 <style>
 /* Container principal */
@@ -148,7 +159,7 @@ with container:
         st.image("images/AlgoFitTrain.png", width=200)
 
     with cols_layout[1]:
-        st.title("Your Personalized Training Plan")
+        st.markdown('<div class="title-shadow">Your Personalized Training Plan</div>', unsafe_allow_html=True)
 
         if "recomendaciones" not in st.session_state:
             st.error("❌ No data received. Please complete your profile first.")

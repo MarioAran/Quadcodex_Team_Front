@@ -105,13 +105,13 @@ with container:
         container2 = st.container(vertical_alignment = "center", border=False)
         with container2:
             # Boton Recomendar
-            b1, b2, b3 = st.columns([2.3,3,2])
+            b1, b2, b3 = st.columns([2.4,3,2])
             with b2:
-                if st.button("Recomendar"):
+                if st.button("Recommend"):
                     st.switch_page("pages/training_recommend.py")
             st.write("")
-            b4, b5, b6 = st.columns([2.4,4,2])
+            b4, b5, b6 = st.columns([2.3,3,2])
             with b5:
-                if st.button("Datos Personales"):
+                if st.button("Personal data"):
                     st.switch_page("pages/datos_personales.py")
         st.markdown('</div>', unsafe_allow_html=True)

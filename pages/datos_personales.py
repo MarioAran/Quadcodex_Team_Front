@@ -204,6 +204,17 @@ st.markdown(f"""
         </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+.title-shadow {
+    font-size: 3rem;
+    font-weight: 650;
+    color: white;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.50);
+}
+</style>
+""", unsafe_allow_html=True)
+
 # Estetica para cajas secundarias
 css = f"""
 <style>
@@ -289,13 +300,13 @@ class Gestor_Usuario:
 if st.button("⬅ Back to Main Menu"):
     st.switch_page("pages/menu.py")
 
-st.title("Before starting!")
+st.markdown('<div class="title-shadow">Before starting!</div>', unsafe_allow_html=True)
 st.markdown("Fill your personal information below.")
 
 gestor = Gestor_Usuario()
 
 with st.form("perfil_gym_form"):
-    st.header("Personal Data")
+    st.markdown('<div class="title-shadow">Personal Data!</div>', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
 
     with col1:
