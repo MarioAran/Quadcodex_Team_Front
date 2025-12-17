@@ -196,7 +196,6 @@ with b2:
                 st.error(f"Could not connect to API: {e}")
 
     st.markdown("""
-    /* Links de las redes */
     <div class="social-icons">
         <img src="https://upload.wikimedia.org/wikipedia/commons/archive/c/c1/20210618182605%21Google_%22G%22_logo.svg" alt="Google" title="Login with Google">
         <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" title="Login with Facebook">
@@ -208,7 +207,6 @@ with b2:
         col1, col2 = st.columns(2)
         with col1 :
             st.markdown("""
-            /* Links de los linkedin */
             <div style="display: flex; flex-direction: column; gap: 10px;">
                 <button class="custom-button">
                     <a href="https://www.linkedin.com/in/gabriel-alejandro-michielon-perez/" target="_blank">
@@ -239,7 +237,6 @@ with b2:
 
         with col2:
             st.markdown("""
-                    /* Links de los repos */
                     <button class="custom-button">
                         <a href="https://github.com/MarioAran/Quadcodex_Team_Front" target="_blank">
                             <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="24" height="24">
