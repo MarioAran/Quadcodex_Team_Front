@@ -4,6 +4,7 @@ import threading
 import requests
 from colores import Colores_class
 
+# Funcionm para mantener el Render activo
 def keep_server_alive():
     while True:
         try:
@@ -14,6 +15,8 @@ def keep_server_alive():
 
 st.set_page_config(page_title="AlgoFit V0.1-Login", layout="centered")
 colores = Colores_class()
+
+# Ocultar barra de arriba
 hide_menu_style = """
 <style>
     [data-testid="stSidebar"],
@@ -32,12 +35,15 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 st.markdown(f"""
 <style>
+/* Fondo */
 .stApp {{
     background-image: url("https://public.dir.cat/api/media/file/web-1080x1920-dec-1920x1080.gif");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
 }}
+            
+/* Container */
 .block-container {{
     margin-top: 0;
     padding: 0;
@@ -48,11 +54,15 @@ st.markdown(f"""
     justify-content: center;
     align-items: center;
 }}
+
+/* Labels */
 label {{
     font-weight: 600 !important;
     color: {colores.get_fondo_general()} !important;
     font-size: 18px !important;
 }}
+
+/* Container de Inputs */
 .stTextInput {{
     background: #7a7a7a;
     background: linear-gradient(54deg,rgba(122, 122, 122, 1) 0%, rgba(163, 163, 164, 1) 100%);
@@ -72,6 +82,8 @@ div[data-baseweb="input"] input {{
     font-size: 16px !important;
     padding: 12px !important;
 }}
+
+/* Botones */
 div.stButton > button {{
     width: 100%;
     padding: 15px 40px;
@@ -88,6 +100,8 @@ div.stButton > button:hover {{
     color: black;
     border: 2px solid {colores.get_botones_1()};
 }}
+
+/* Iconos */
 .social-icons {{
     display: flex;
     justify-content: center;
@@ -108,6 +122,7 @@ div.stButton > button:hover {{
 
 st.markdown("""
 <style>
+/* Botones para los Linkedin*/
 .custom-button {
     display: flex;
     align-items: center;
@@ -131,6 +146,7 @@ st.markdown("""
 
 st.markdown("""
 <style>
+/* Sombra del titulo*/
 .title-shadow {
     font-size: 3rem;
     font-weight: 650;
@@ -154,6 +170,7 @@ with b2:
     with b5:
         if st.button("Login"):
             try:
+                # Llamada para el login
                 payload = {"dni": user}
                 resp = requests.post(
                     "https://quadcodex-team-back.onrender.com/login",
@@ -165,29 +182,33 @@ with b2:
                     st.session_state["user"] = data["usuario"]
                     st.session_state["id_usuario"] = data["usuario"]["id_user"]
                     if "server_pinger_started" not in st.session_state:
-                        thread = threading.Thread(target=keep_server_alive, daemon=True)
+                        thread = threading.Thread(target=keep_server_alive, daemon=True) # Mantener vivo el Render
                         thread.start()
                         st.session_state["server_pinger_started"] = True
-                    st.switch_page("pages/menu.py")
+                    st.switch_page("pages/menu.py") # Cambio de pagina
                 else:
                     st.markdown("""
                     <div class="custom-error">
-                        ❌ Usuario incorrecto, vuelva a intentarlo
+                        ❌ Incorrect user, please try again
                     </div>
                     """, unsafe_allow_html=True)
             except Exception as e:
                 st.error(f"Could not connect to API: {e}")
+
     st.markdown("""
+    /* Links de las redes */
     <div class="social-icons">
         <img src="https://upload.wikimedia.org/wikipedia/commons/archive/c/c1/20210618182605%21Google_%22G%22_logo.svg" alt="Google" title="Login with Google">
         <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" title="Login with Facebook">
         <img src="https://abs.twimg.com/responsive-web/client-web/icon-default.522d363a.png" alt="X" title="Login with X">
     </div>
     """, unsafe_allow_html=True)
+    
     with st.expander("Contact"):
         col1, col2 = st.columns(2)
         with col1 :
             st.markdown("""
+            /* Links de los linkedin */
             <div style="display: flex; flex-direction: column; gap: 10px;">
                 <button class="custom-button">
                     <a href="https://www.linkedin.com/in/gabriel-alejandro-michielon-perez/" target="_blank">
@@ -215,8 +236,10 @@ with b2:
                 </button>
             </div>
             """, unsafe_allow_html=True)
+
         with col2:
             st.markdown("""
+                    /* Links de los repos */
                     <button class="custom-button">
                         <a href="https://github.com/MarioAran/Quadcodex_Team_Front" target="_blank">
                             <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="24" height="24">

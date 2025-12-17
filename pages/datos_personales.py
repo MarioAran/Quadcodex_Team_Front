@@ -16,6 +16,7 @@ hide_menu_style = """
         div[data-testid="expandedSidebar"] {display: none !important;}
     </style>
 """
+
 # Ocultar barra de la izquierda
 st.markdown("""
     <style>
@@ -201,17 +202,17 @@ st.markdown(f"""
         }}
 
         
-        </style>
+    </style>
 """, unsafe_allow_html=True)
 
 st.markdown("""
 <style>
-.title-shadow {
-    font-size: 3rem;
-    font-weight: 650;
-    color: white;
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.50);
-}
+        .title-shadow {
+            font-size: 3rem;
+            font-weight: 650;
+            color: white;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.50);
+        }
 </style>
 """, unsafe_allow_html=True)
 

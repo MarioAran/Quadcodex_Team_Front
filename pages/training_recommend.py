@@ -1,8 +1,8 @@
 import streamlit as st
 import requests
-
 from colores import Colores_class
 
+# Mapeo de musculos
 MUSCLE_MAP = {
     "abs": "abs", "abdominals": "abs", "core": "abs",
     "quadriceps": "legs", "quads": "legs", "hamstrings": "legs",
@@ -14,7 +14,7 @@ MUSCLE_MAP = {
     "glutes": "glutes"
 }
 
-# Mapa final → imagen
+# Imagenes de grupos musculares
 MUSCLE_IMAGES = {
     "abs": "images/AlgoFit_Abs.png",
     "legs": "images/AlgoFit_Legs.png",
@@ -26,8 +26,11 @@ MUSCLE_IMAGES = {
     "glutes": "images/AlgoFit_Glutes.png",
 }
 
-DEFAULT_IMAGE = "https://via.placeholder.com/80x80.png?text=IMG"
+DEFAULT_IMAGE = "images/AlgoFit2.png"
 
+API_URL = "https://quadcodex-team-back.onrender.com/update"
+
+# Funcion de optener imagenes
 def get_muscle_image(muscles: list[str]) -> str:
 
     for m in muscles:
@@ -43,6 +46,7 @@ def get_muscle_image(muscles: list[str]) -> str:
 st.set_page_config(page_title="AlgoFit V0.1-Training Plan", layout="wide")
 colores = Colores_class()
 
+# Ocultar sidebar
 hide_menu_style = """
     <style>
         [data-testid="stSidebar"] {display: none !important;}
@@ -54,6 +58,7 @@ hide_menu_style = """
 
 st.markdown(f"""
     <style>
+        /* Fondo */
         .stApp {{
             background-image: url("https://static.vecteezy.com/system/resources/previews/006/469/232/non_2x/abstract-white-background-with-halftone-texture-free-vector.jpg");
             background-size: cover;
@@ -100,44 +105,45 @@ st.markdown(f"""
 
 st.markdown(f"""
     <style>
-    /* Texto dentro de los containers de recomendaciones */
-    div[class*="st-key-rec_container_"] * {{
-        color: black !important;
-    }}
+        /* Texto dentro de los containers de recomendaciones */
+        div[class*="st-key-rec_container_"] * {{
+            color: black !important;
+        }}
 
-    /* Texto dentro de los sliders */
-    .stSlider * {{
-        color: black !important;
-    }}
+        /* Texto dentro de los sliders */
+        .stSlider * {{
+            color: black !important;
+        }}
     </style>
 """, unsafe_allow_html=True)
 
 st.markdown("""
 <style>
-.title-shadow {
-    font-size: 3rem;
-    font-weight: 650;
-    color: white;
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.50);
-}
+        /* Titulos de sombras */
+        .title-shadow {
+            font-size: 3rem;
+            font-weight: 650;
+            color: white;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.50);
+        }
 </style>
 """, unsafe_allow_html=True)
 
 css = f"""
 <style>
-/* Container principal */
-div[class*="st-key-my_blue_container"] {{
-    background-color: {colores.get_cajas_principales()};
-    border-radius: 14px;
-    padding: 20px;
+        /* Container principal */
+        div[class*="st-key-my_blue_container"] {{
+            background-color: {colores.get_cajas_principales()};
+            border-radius: 14px;
+            padding: 20px;
 }}
 
-/* Containers de recomendaciones */
-div[class*="st-key-rec_container_"] {{
-    background-color: {colores.get_botones_2()};
-    border-radius: 14px;
-    padding: 18px;
-    margin-bottom: 16px;
+        /* Containers de recomendaciones */
+        div[class*="st-key-rec_container_"] {{
+            background-color: {colores.get_botones_2()};
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 16px;
 }}
 </style>
 """
@@ -151,7 +157,7 @@ container = st.container(key="my_blue_container",vertical_alignment = "center", 
 
 with container:
     if st.button("⬅ Back to Main Page"):
-        st.switch_page("pages/menu.py")
+        st.switch_page("pages/menu.py") # Cambio de pagina
 
     cols_layout = st.columns([0.5, 3])
 
@@ -166,25 +172,29 @@ with container:
             st.stop()
         usuario = st.session_state["usuario"]
 
+        # Obtencion de datos
         data = st.session_state["recomendaciones"]
         user = data.get("user_data", {})
         recs = data.get("recomendaciones", [])
 
+        # Aplicacion de reversa
         recs = sorted(recs, key=lambda x: x.get("rating_score", 0), reverse=True)
 
+        # Datos del usuario
         st.markdown(f"**User:** {usuario.Nombre} {usuario.Apellido} | **Gender:** {usuario.Genero} | Age: {usuario.Edad} | Height: {usuario.Altura} cm | Weight: {usuario.Peso} kg")
         st.markdown(f"**Level:** {usuario.Nivel} | **Exercises Recommended:** {len(st.session_state.get('recomendaciones', {}).get('recomendaciones', []))}")
 
-API_URL = "https://quadcodex-team-back.onrender.com/update"
 
 for i, exercise in enumerate(recs):
 
+    # Container de recomendaciones
     container_rec = st.container(
         key=f"rec_container_{i}",
         vertical_alignment="center",
         border=True
     )
 
+    # Relleno de container
     with container_rec:
         cols = st.columns([0.8, 3, 1.1, 1, 2], vertical_alignment="center")
 

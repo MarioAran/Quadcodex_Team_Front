@@ -77,10 +77,11 @@ with container:
             b1, b2, b3 = st.columns([2.4,3,2])
             with b2:
                 if st.button("Recommend"):
-                    st.switch_page("pages/training_recommend.py")
+                    st.switch_page("pages/training_recommend.py") #Cambio de pagina
             st.write("")
+            # Boton Datos
             b4, b5, b6 = st.columns([2.3,3,2])
             with b5:
                 if st.button("Personal data"):
-                    st.switch_page("pages/datos_personales.py")
+                    st.switch_page("pages/datos_personales.py") #Cambio de pagina
         st.markdown('</div>', unsafe_allow_html=True)
