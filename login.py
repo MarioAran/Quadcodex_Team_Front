@@ -194,37 +194,51 @@ with b5:
 st.markdown('</div></div>', unsafe_allow_html=True)
 
 # ================= CONTENEDOR 2: CARDS =================
-st.markdown('<div class="section-cards">', unsafe_allow_html=True)
 
-st.markdown(
-    "<h2 style='text-align:center;margin-bottom:50px;'>¿Qué ofrece AlgoFit?</h2>",
-    unsafe_allow_html=True
-)
+# CSS para tarjetas (puedes añadir más estilos como colores, íconos, etc.)
+st.markdown("""
 
-c1, c2, c3 = st.columns(3)
+""", unsafe_allow_html=True)
 
-with c1:
+# Crear columnas
+cols = st.columns(4)
+
+# Nueva tarjeta 1
+with cols[0]:
     st.markdown("""
     <div class="text-card">
-        <h3>📊 Análisis Inteligente</h3>
-        <p>Algoritmos avanzados para analizar tu progreso.</p>
+        <img src="https://www.dir.cat/api/media/file/Hyrox-boutique-1-900x480.webp" alt="Fuerza">
+        <h3>Rutinas de Cardio</h3>
+        <p>Entrenamiento funcional de alta intensidad que combina fuerza, resistencia y carrera. Una experiencia desafiante para superar tus propios límites.</p>
     </div>
     """, unsafe_allow_html=True)
 
-with c2:
+# Nueva tarjeta 2
+with cols[1]:
     st.markdown("""
     <div class="text-card">
-        <h3>💪 Entrenamiento Personalizado</h3>
-        <p>Planes adaptados a tu nivel y objetivos.</p>
+        <img src="https://www.dir.cat/api/media/file/Bootcamp%20boutique-900x480.webp" alt="Cardio">
+        <h3>🏃 Entrenamientos FUerza</h3>
+        <p>Entrenamiento de alta intensidad que combina intervalos de carrera en cinta con trabajo muscular funcional. Una experiencia completa y exigente para todo el cuerpo.</p>
     </div>
     """, unsafe_allow_html=True)
 
-with c3:
+# Nueva tarjeta 3
+with cols[2]:
     st.markdown("""
     <div class="text-card">
-        <h3>🚀 Seguimiento en Tiempo Real</h3>
-        <p>Métricas claras para mantenerte motivado.</p>
+        <img src="https://www.dir.cat/api/media/file/Glow%20Pilates-900x480.jpg" alt="Nutrición">
+        <h3>Últimes tendències en fitness</h3>
+        <p>El fitness evoluciona constantemente, y en los clubs DiR encontrarás las actividades que marcan tendencia en Barcelona. HYROX, Reformer Pilates, Bootcamp, Boxeo y mucho más. Entrenamientos dinámicos, efectivos y guiados por instructores expertos para que descubras nuevas formas de superarte y mantener la motivación.</p>
     </div>
     """, unsafe_allow_html=True)
 
-st.markdown('</div>', unsafe_allow_html=True)
+# Nueva tarjeta 4
+with cols[3]:
+    st.markdown("""
+    <div class="text-card">
+        <img src="https://img.icons8.com/emoji/96/heart-with-pulse.png" alt="Bienestar">
+        <h3>❤️ Salud & Bienestar</h3>
+        <p>Recomendaciones de recuperación, descanso y estilo de vida saludable.</p>
+    </div>
+    """, unsafe_allow_html=True)
