@@ -274,8 +274,49 @@ for i, card in enumerate(cards_data):
 
 # ================= PATROCINADOR =================
 st.markdown("""
+<style>
+.text-card-partner {
+    background-color: #f9f9f9;
+    border-radius: 16px;
+    padding: 30px;
+    width: auto;  /* se adapta al contenido */
+    max-width: 600px; /* opcional para no exceder cierto ancho */
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    margin: 0 auto; /* centra la tarjeta */
+}
+
+.text-card-partner img {
+    width: 100%;
+    max-width: 500px; /* limita el ancho máximo de la imagen */
+    height: auto; /* mantiene la proporción */
+    margin-bottom: 20px;
+}
+
+.text-card-partner h3 {
+    margin: 10px 0;
+    color: #d91f26;
+}
+
+.text-card-partner p {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.text-card-partner a {
+    color: #d91f26;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.text-card-partner a:hover {
+    text-decoration: underline;
+}
+</style>
+
 <div class="card-container">
-    <div class="text-card">
+    <div class="text-card-partner">
         <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/DiR_logo.png" alt="DIR Logo">
         <h3>Patrocinador Oficial</h3>
         <p>Estamos orgullosos de contar con <strong>DiR</strong> como nuestro patrocinador oficial. Gracias a su colaboración, podemos ofrecer experiencias únicas y mantener nuestros estándares de calidad en cada actividad.</p>
@@ -284,6 +325,8 @@ st.markdown("""
     </div>
 </div>
 """, unsafe_allow_html=True)
+
+
 
 # ================= TARJETAS DIR =================
 dir_cards = [
