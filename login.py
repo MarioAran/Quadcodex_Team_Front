@@ -237,7 +237,7 @@ st.markdown('<div class="section-login">', unsafe_allow_html=True)
 st.markdown('<div class="title-shadow"><h1>    </h1></div>', unsafe_allow_html=True)
 
 # ================= TARJETAS =================
-cols = st.columns([0.2,2,2,2,2,0.2])
+cols = st.columns([0.2,3,3,3,3,0.2])
 cards_data = [
     {
         "img": "https://www.dir.cat/api/media/file/Hyrox-boutique-1-900x480.webp",
@@ -285,6 +285,10 @@ st.markdown("""
     text-align: center;
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     margin: 0 auto; /* centra la tarjeta */
+}
+.text-card-partner:hover {
+    transform: translateY(-6px);
+    transition: transform 0.2s ease-in-out;
 }
 
 .text-card-partner img {
@@ -340,7 +344,7 @@ dir_cards = [
 st.markdown('<div class="card-container">', unsafe_allow_html=True)
 # Crear 4 columnas (una por cada tarjeta)
 
-cols = st.columns([0.2,2,2,2,2,0.2])
+cols = st.columns([0.2,3,3,3,3,0.2])
 
 # Iterar sobre las tarjetas y asignarlas a cada columna
 for i, c in enumerate(dir_cards):
