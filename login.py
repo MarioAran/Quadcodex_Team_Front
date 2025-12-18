@@ -251,7 +251,8 @@ with cols[2]:
     <div class="text-card">
         <img src="https://www.dir.cat/api/media/file/Glow%20Pilates-900x480.jpg" alt="Nutrición">
         <h3>Ultimas tendencias en fitness</h3>
-        <p>El fitness evoluciona constantemente, y en los clubs DiR encontrarás las actividades que marcan tendencia en Barcelona. </p><p>HYROX, Reformer Pilates, Bootcamp, Boxeo y mucho más. Entrenamientos dinámicos, efectivos y guiados por instructores expertos para que descubras nuevas formas de superarte y mantener la motivación.</p>
+        <p>El fitness evoluciona constantemente, y en los clubs DiR encontrarás las actividades que marcan tendencia en Barcelona. </p>
+        <p>HYROX, Reformer Pilates, Bootcamp, Boxeo y mucho más. Entrenamientos dinámicos, efectivos y guiados por instructores expertos para que descubras nuevas formas de superarte y mantener la motivación.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -260,7 +261,7 @@ with cols[3]:
    # Tarjeta del solárium con texto negro
     st.markdown("""
     <div class="text-card">
-        <img src="https://www.dir.cat/sites/default/files/2017-03/solarium-dir.jpg" alt="Bienestar">
+        <img src="https://pisojoven.es/wp-content/uploads/2024/01/vista-terraza.jpg" alt="Bienestar">
         <h3>Solarium & Relax</h3>
         <p>Disfruta de nuestro solárium para relajarte y recuperar energía después de tus entrenamientos. 
         Un espacio diseñado para el descanso, mejorar tu bienestar y disfrutar de la luz natural de manera segura.</p>
@@ -347,7 +348,6 @@ st.markdown("""
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 .text-card img {
-    width: 150px;
     margin-bottom: 15px;
 }
 .text-card h3 {
