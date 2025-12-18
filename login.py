@@ -34,16 +34,10 @@ header[data-testid="stHeader"] {
 </style>
 """, unsafe_allow_html=True)
 
-
-####test
-
-
-
-# ================= CSS =================
+# ================= CSS GENERAL =================
 st.markdown(f"""
 <style>
-
-/* ===== SECCIÓN LOGIN (GIF SOLO AQUÍ) ===== */
+/* ===== LOGIN ===== */
 .section-login {{
     min-height: 100vh;
     background-image: url("https://public.dir.cat/api/media/file/web-1080x1920-dec-1920x1080.gif");
@@ -53,26 +47,18 @@ st.markdown(f"""
     justify-content: center;
     align-items: center;
 }}
-
-
-
-/* Inputs */
 label {{
     color: white !important;
     font-size: 16px !important;
 }}
-
 div[data-baseweb="input"] > div {{
     background-color: {colores.get_botones_2()} !important;
     border-radius: 8px !important;
 }}
-
 div[data-baseweb="input"] input {{
     color: black !important;
     padding: 12px !important;
 }}
-
-/* Botón */
 div.stButton > button {{
     width: 100%;
     padding: 14px;
@@ -87,8 +73,6 @@ div.stButton > button:hover {{
     background-color: {colores.get_botones_2()};
     color: black;
 }}
-
-/* Título */
 .title-shadow {{
     font-size: 2.8rem;
     font-weight: 650;
@@ -97,8 +81,6 @@ div.stButton > button:hover {{
     text-shadow: 4px 4px 8px rgba(0,0,0,0.95);
     margin-bottom: 25px;
 }}
-
-/* Social icons */
 .social-icons {{
     display: flex;
     justify-content: center;
@@ -110,52 +92,119 @@ div.stButton > button:hover {{
     cursor: pointer;
 }}
 
-/* ===== SECCIÓN CARDS (FONDO BLANCO) ===== */
-.section-cards {{
-    background-color: white;
-    padding: 80px 10%;
+/* ===== TARJETAS ===== */
+.card-container {{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 40px;
 }}
-
-.text-card {{
-    background: white;
-    padding: 25px;
+.text-card, .card {{
+    background-color: #f9f9f9;
+    color: #111;
+    width: 300px;
     border-radius: 16px;
+    padding: 20px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    text-align: center; /* centra todo el contenido */
     transition: transform 0.2s ease-in-out;
 }}
-
-.text-card:hover {{
+.text-card:hover, .card:hover {{
     transform: translateY(-6px);
 }}
-
-.text-card h3 {{
-    margin-top: 0;
-    color: #111;
+.text-card img, .card img {{
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}}
+.text-card h3, .card h3 {{
+    margin: 10px 0;
+    color: #d91f26;
+}}
+.text-card p, .card p {{
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}}
+.text-card a, .card a {{
+    color: #d91f26;
+    text-decoration: none;
+    font-weight: bold;
+}}
+.text-card a:hover, .card a:hover {{
+    text-decoration: underline;
+}}
+.text-card ul, .card ul {{
+    list-style: none;
+    padding-left: 0;
+    margin: 0 auto;
+    text-align: center; /* centra listas */
+}}
+.text-card li, .card li {{
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 5px;
 }}
 
-.text-card p {{
-    color: #444;
+/* ===== FOOTER ===== */
+.footer {{
+    background-color: #f2f2f2;
+    padding: 30px 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
 }}
-
+.footer-container {{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}}
+.footer .section {{
+    flex: 1 1 200px;
+    margin: 10px;
+}}
+.footer h4 {{
+    margin-bottom: 10px;
+}}
+.footer ul {{
+    list-style-type: none;
+    padding-left: 0;
+}}
+.footer ul li {{
+    margin-bottom: 5px;
+}}
+.footer ul li a {{
+    color: #333;
+    text-decoration: none;
+}}
+.footer ul li a:hover {{
+    text-decoration: underline;
+}}
+.footer-bottom {{
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+}}
 </style>
 """, unsafe_allow_html=True)
 
-# ================= CONTENEDOR 1: LOGIN =================
-
-
+# ================= LOGIN =================
 st.markdown('<div class="login-box">', unsafe_allow_html=True)
 st.markdown('<div class="title-shadow">Welcome to AlgoFit</div>', unsafe_allow_html=True)
-
 b1, b2, b3 = st.columns([1.7,6.5,1.7])
 with b2:
     t1, t2, t3 = st.columns([3,3,3])
     with t2:
         user = st.text_input("User")
         pwd = st.text_input("Password", type="password")
-
         if st.button("Login"):
             try:
-                # Llamada para el login
                 payload = {"dni": user}
                 resp = requests.post(
                     "https://quadcodex-team-back.onrender.com/login",
@@ -167,17 +216,12 @@ with b2:
                     st.session_state["user"] = data["usuario"]
                     st.session_state["id_usuario"] = data["usuario"]["id_user"]
                     if "server_pinger_started" not in st.session_state:
-                        thread = threading.Thread(target=keep_server_alive, daemon=True) # Mantener vivo el Render
+                        thread = threading.Thread(target=keep_server_alive, daemon=True)
                         thread.start()
                         st.session_state["server_pinger_started"] = True
                         st.switch_page("pages/menu.py")
-
                 else:
-                    st.markdown("""
-                    <div class="custom-error">
-                        ❌ Incorrect user, please try again
-                    </div>
-                    """, unsafe_allow_html=True)
+                    st.markdown('<div class="custom-error">❌ Incorrect user, please try again</div>', unsafe_allow_html=True)
             except Exception as e:
                 st.error(f"Could not connect to API: {e}")
 
@@ -188,192 +232,48 @@ with b2:
         <img src="https://abs.twimg.com/responsive-web/client-web/icon-default.522d363a.png" alt="X" title="Login with X">
     </div>
     """, unsafe_allow_html=True)
-
 st.markdown('</div></div>', unsafe_allow_html=True)
 st.markdown('<div class="section-login">', unsafe_allow_html=True)
-# ================= CONTENEDOR 2: CARDS =================
 
-# CSS para tarjetas (puedes añadir más estilos como colores, íconos, etc.)
-st.markdown("""
-<style>
-.text-card {
-    background-color: #ffffff;  /* Fondo blanco */
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-    margin-bottom: 20px;
-    color: #000000;  /* Texto negro */
-}
-
-.text-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0,0,0,0.2);
-}
-
-.text-card h3 {
-    color: #2E86C1;  /* Puedes mantener azul para títulos */
-}
-
-.text-card p, .text-card li {
-    color: #000000;  /* Texto negro para párrafos y listas */
-    font-size: 16px;
-}
-
-.text-card img {
-    height: auto;
-}
-</style>
-""", unsafe_allow_html=True)
-
-
-# Crear columnas
+# ================= TARJETAS =================
 cols = st.columns(4)
+cards_data = [
+    {
+        "img": "https://www.dir.cat/api/media/file/Hyrox-boutique-1-900x480.webp",
+        "title": "Rutinas de Cardio",
+        "text": "Entrenamiento de alta intensidad que combina intervalos de carrera en cinta con trabajo muscular funcional. Una experiencia completa y exigente para todo el cuerpo."
+    },
+    {
+        "img": "https://www.dir.cat/api/media/file/Bootcamp%20boutique-900x480.webp",
+        "title": "Entrenamientos Fuerza",
+        "text": "Entrenamiento funcional de alta intensidad que combina fuerza. Una experiencia desafiante para superar tus propios límites."
+    },
+    {
+        "img": "https://www.dir.cat/api/media/file/Glow%20Pilates-900x480.jpg",
+        "title": "Últimas tendencias en fitness",
+        "text": "El fitness evoluciona constantemente, y en los clubs DiR encontrarás las actividades que marcan tendencia en Barcelona, HYROX, Reformer Pilates, Bootcamp, Boxeo y mucho más. Entrenamientos dinámicos, efectivos y guiados por instructores expertos."
+    },
+    {
+        "img": "https://pisojoven.es/wp-content/uploads/2024/01/vista-terraza.jpg",
+        "title": "Solarium & Relax",
+        "text": "Disfruta de nuestro solárium para relajarte y recuperar energía después de tus entrenamientos.",
+        "list": ["☀️ Espacios cómodos y seguros", "🧘 Zona de relax y lectura", "💧 Hidratación disponible", "🕒 Acceso flexible según tu rutina"]
+    }
+]
 
-# Nueva tarjeta 1
-with cols[0]:
-    st.markdown("""
-    <div class="text-card">
-        <img src="https://www.dir.cat/api/media/file/Hyrox-boutique-1-900x480.webp" alt="Fuerza">
-        <h3>Rutinas de Cardio</h3>
-        <p>Entrenamiento de alta intensidad que combina intervalos de carrera en cinta con trabajo muscular funcional. Una experiencia completa y exigente para todo el cuerpo.</p>
-    </div>
-    """, unsafe_allow_html=True)
+for i, card in enumerate(cards_data):
+    with cols[i]:
+        st.markdown(f"""
+        <div class="text-card">
+            <img src="{card['img']}" alt="{card['title']}">
+            <h3>{card['title']}</h3>
+            <p>{card['text']}</p>
+            {"<ul>" + "".join([f"<li>{li}</li>" for li in card.get("list", [])]) + "</ul>" if card.get("list") else ""}
+        </div>
+        """, unsafe_allow_html=True)
 
-# Nueva tarjeta 2
-with cols[1]:
-    st.markdown("""
-    <div class="text-card">
-        <img src="https://www.dir.cat/api/media/file/Bootcamp%20boutique-900x480.webp" alt="Cardio">
-        <h3>Entrenamientos Fuerza</h3>
-        <p>Entrenamiento funcional de alta intensidad que combina fuerza. Una experiencia desafiante para superar tus propios límites.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-# Nueva tarjeta 3
-with cols[2]:
-    st.markdown("""
-    <div class="text-card">
-        <img src="https://www.dir.cat/api/media/file/Glow%20Pilates-900x480.jpg" alt="Nutrición">
-        <h3>Ultimas tendencias en fitness</h3>
-        <p>El fitness evoluciona constantemente, y en los clubs DiR encontrarás las actividades que marcan tendencia en Barcelona, HYROX, Reformer Pilates, Bootcamp, Boxeo y mucho más. Entrenamientos dinámicos, efectivos y guiados por instructores expertos para que descubras nuevas formas de superarte y mantener la motivación.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-# Nueva tarjeta 4
-with cols[3]:
-   # Tarjeta del solárium con texto negro
-    st.markdown("""
-    <div class="text-card">
-        <img src="https://pisojoven.es/wp-content/uploads/2024/01/vista-terraza.jpg" alt="Bienestar">
-        <h3>Solarium & Relax</h3>
-        <p>Disfruta de nuestro solárium para relajarte y recuperar energía después de tus entrenamientos. 
-        Un espacio diseñado para el descanso, mejorar tu bienestar y disfrutar de la luz natural de manera segura.</p>
-        <ul style="text-align:left; margin-left:20px;">
-            <li>☀️ Espacios cómodos y seguros</li>
-            <li>🧘 Zona de relax y lectura</li>
-            <li>💧 Hidratación disponible</li>
-            <li>🕒 Acceso flexible según tu rutina</li>
-        </ul>
-    </div>
-    """, unsafe_allow_html=True)
-
-#=====================
-
-# CSS para las tarjetas tipo directorio
+# ================= PATROCINADOR =================
 st.markdown("""
-<style>
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-bottom: 40px;
-}
-
-.card {
-    background-color: #0d1117;
-    color: #ffffff;
-    width: 250px;
-    border-radius: 10px;
-    overflow: hidden;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: transform 0.2s;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-}
-
-.card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-}
-
-.card h3 {
-    font-family: 'Arial Black', sans-serif;
-    margin: 10px 0;
-}
-
-.card p {
-    font-size: 14px;
-    margin: 5px 10px;
-}
-
-.card a {
-    display: block;
-    margin: 10px 0 15px 0;
-    color: #00aaff;
-    text-decoration: none;
-}
-
-.card a:hover {
-    text-decoration: underline;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# Contenido HTML con las tarjetas
-st.markdown("""
-<style>
-.card-container {
-    display: flex;
-    justify-content: center;
-    margin: 30px 0;
-}
-.text-card {
-    background-color: #f9f9f9;
-    border-radius: 12px;
-    padding: 20px;
-    max-width: 400px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-.text-card img {
-    margin-bottom: 15px;
-}
-.text-card h3 {
-    text-align: center;
-    margin: 10px 0;
-    color: #d91f26;
-}
-.text-card p {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 15px;
-}
-.text-card a {
-    color: #d91f26;
-    text-decoration: none;
-    font-weight: bold;
-}
-.text-card a:hover {
-    text-decoration: underline;
-}
-</style>
-
 <div class="card-container">
     <div class="text-card">
         <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/DiR_logo.png" alt="DIR Logo">
@@ -384,41 +284,32 @@ st.markdown("""
     </div>
 </div>
 """, unsafe_allow_html=True)
- 
 
-st.markdown("""
-<div class="card-container">
-    <div class="card">
-        <img src="https://www.dir.cat/api/media/file/DiRAvmadridw-900x480.webp" alt="DIR Av. Madrid">
-        <h3>DIR AV. MADRID</h3>
-        <p>C/ Av. de Madrid, 170, Sants-Montjuïc, 08028, Barcelona</p>
-    </div>
-    <div class="card">
-        <img src="https://www.dir.cat/api/media/file/dircampusw-900x480.webp" alt="DIR Campus">
-        <h3>DIR CAMPUS</h3>
-        <p>C/ Avinguda Dr. Marañón, 17, Les Corts, 08028, Barcelona</p>
-    </div>
-    <div class="card">
-        <img src="https://www.dir.cat/api/media/file/dirclaretw-900x480.webp" alt="DIR Castillejos">
-        <h3>DIR CASTILLEJOS</h3>
-        <p>C/ Castillejos, 388, 08025, Barcelona</p>
-    </div>
-    <div class="card">
-        <img src="https://www.dir.cat/api/media/file/dirclarisw-900x480.webp" alt="DIR Claret">
-        <h3>DIR CLARET</h3>
-        <p>C/ St. Antoni Maria Claret, 84-86, 08025, Barcelona</p>
-    </div>
-</div>
-""", unsafe_allow_html=True) 
+# ================= TARJETAS DIR =================
+dir_cards = [
+    {"img": "https://www.dir.cat/api/media/file/DiRAvmadridw-900x480.webp", "title": "DIR AV. MADRID", "text": "C/ Av. de Madrid, 170, Sants-Montjuïc, 08028, Barcelona"},
+    {"img": "https://www.dir.cat/api/media/file/dircampusw-900x480.webp", "title": "DIR CAMPUS", "text": "C/ Avinguda Dr. Marañón, 17, Les Corts, 08028, Barcelona"},
+    {"img": "https://www.dir.cat/api/media/file/dirclaretw-900x480.webp", "title": "DIR CASTILLEJOS", "text": "C/ Castillejos, 388, 08025, Barcelona"},
+    {"img": "https://www.dir.cat/api/media/file/dirclarisw-900x480.webp", "title": "DIR CLARET", "text": "C/ St. Antoni Maria Claret, 84-86, 08025, Barcelona"},
+]
 
+st.markdown('<div class="card-container">', unsafe_allow_html=True)
+# Crear 4 columnas (una por cada tarjeta)
+cols = st.columns(len(dir_cards))
 
+# Iterar sobre las tarjetas y asignarlas a cada columna
+for i, c in enumerate(dir_cards):
+    with cols[i]:
+        st.markdown(f"""
+        <div class="card">
+            <img src="{c['img']}" alt="{c['title']}">
+            <h3>{c['title']}</h3>
+            <p>{c['text']}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-
-
-###3====EVENTOS 
-
-st.markdown('<div class="title-shadow">Proximos Eventos</div>', unsafe_allow_html=True)
-
+# ================= EVENTOS =================
+st.markdown('<div class="title-shadow">Próximos Eventos</div>', unsafe_allow_html=True)
 st.markdown("""
 <div class="card-container">
     <div class="card">
@@ -429,55 +320,8 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-
-####FOOTER=========
-
+# ================= FOOTER =================
 footer = """
-<style>
-.footer {
-    background-color: #f2f2f2;
-    padding: 30px 20px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    color: #333;
-    line-height: 1.6;
-}
-.footer-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-.footer .section {
-    flex: 1 1 200px;
-    margin: 10px;
-}
-.footer h4 {
-    margin-bottom: 10px;
-}
-.footer ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-.footer ul li {
-    margin-bottom: 5px;
-}
-.footer ul li a {
-    color: #333;
-    text-decoration: none;
-}
-.footer ul li a:hover {
-    text-decoration: underline;
-}
-.footer-bottom {
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
-    margin-top: 20px;
-    font-size: 12px;
-    color: #666;
-    text-align: center;
-}
-</style>
-
 <div class="footer">
     <div class="footer-container">
         <div class="section">
@@ -520,5 +364,4 @@ footer = """
     </div>
 </div>
 """
-
 st.markdown(footer, unsafe_allow_html=True)
