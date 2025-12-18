@@ -8,7 +8,7 @@ from colores import Colores_class
 def keep_server_alive():
     while True:
         try:
-            requests.get("http://127.0.0.1:5000/health", timeout=10)
+            requests.get("https://quadcodex-team-back.onrender.com/health", timeout=10)
         except Exception as e:
             print("Error keeping server alive:", e)
         time.sleep(58)
