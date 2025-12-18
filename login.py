@@ -153,35 +153,34 @@ with b2:
     with t2:
         user = st.text_input("User")
         pwd = st.text_input("Password", type="password")
-b4, b5, b6 = st.columns([3,3,3])
-with b5:
-    if st.button("Login"):
-        try:
-            # Llamada para el login
-            payload = {"dni": user}
-            resp = requests.post(
-                "https://quadcodex-team-back.onrender.com/login",
-                json=payload,
-                timeout=10
-            )
-            if resp.status_code == 200:
-                data = resp.json()
-                st.session_state["user"] = data["usuario"]
-                st.session_state["id_usuario"] = data["usuario"]["id_user"]
-                if "server_pinger_started" not in st.session_state:
-                    thread = threading.Thread(target=keep_server_alive, daemon=True) # Mantener vivo el Render
-                    thread.start()
-                    st.session_state["server_pinger_started"] = True
-                    st.switch_page("pages/menu.py")
 
-            else:
-                st.markdown("""
-                <div class="custom-error">
-                    ❌ Incorrect user, please try again
-                </div>
-                """, unsafe_allow_html=True)
-        except Exception as e:
-            st.error(f"Could not connect to API: {e}")
+        if st.button("Login"):
+            try:
+                # Llamada para el login
+                payload = {"dni": user}
+                resp = requests.post(
+                    "https://quadcodex-team-back.onrender.com/login",
+                    json=payload,
+                    timeout=10
+                )
+                if resp.status_code == 200:
+                    data = resp.json()
+                    st.session_state["user"] = data["usuario"]
+                    st.session_state["id_usuario"] = data["usuario"]["id_user"]
+                    if "server_pinger_started" not in st.session_state:
+                        thread = threading.Thread(target=keep_server_alive, daemon=True) # Mantener vivo el Render
+                        thread.start()
+                        st.session_state["server_pinger_started"] = True
+                        st.switch_page("pages/menu.py")
+
+                else:
+                    st.markdown("""
+                    <div class="custom-error">
+                        ❌ Incorrect user, please try again
+                    </div>
+                    """, unsafe_allow_html=True)
+            except Exception as e:
+                st.error(f"Could not connect to API: {e}")
 
     st.markdown("""
     <div class="social-icons">
@@ -197,8 +196,37 @@ st.markdown('</div></div>', unsafe_allow_html=True)
 
 # CSS para tarjetas (puedes añadir más estilos como colores, íconos, etc.)
 st.markdown("""
+<style>
+.text-card {
+    background-color: #ffffff;  /* Fondo blanco */
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 20px;
+    color: #000000;  /* Texto negro */
+}
 
+.text-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+}
+
+.text-card h3 {
+    color: #2E86C1;  /* Puedes mantener azul para títulos */
+}
+
+.text-card p, .text-card li {
+    color: #000000;  /* Texto negro para párrafos y listas */
+    font-size: 16px;
+}
+
+.text-card img {
+    height: auto;
+}
+</style>
 """, unsafe_allow_html=True)
+
 
 # Crear columnas
 cols = st.columns(4)
@@ -235,10 +263,19 @@ with cols[2]:
 
 # Nueva tarjeta 4
 with cols[3]:
+   # Tarjeta del solárium con texto negro
     st.markdown("""
     <div class="text-card">
-        <img src="https://img.icons8.com/emoji/96/heart-with-pulse.png" alt="Bienestar">
-        <h3>❤️ Salud & Bienestar</h3>
-        <p>Recomendaciones de recuperación, descanso y estilo de vida saludable.</p>
+        <img src="https://www.dir.cat/sites/default/files/2017-03/solarium-dir.jpg" alt="Bienestar">
+        <h3>☀️ Solárium & Relax</h3>
+        <p>Disfruta de nuestro solárium para relajarte y recuperar energía después de tus entrenamientos. 
+        Un espacio diseñado para el descanso, mejorar tu bienestar y disfrutar de la luz natural de manera segura.</p>
+        <ul style="text-align:left; margin-left:20px;">
+            <li>☀️ Espacios cómodos y seguros</li>
+            <li>🧘 Zona de relax y lectura</li>
+            <li>💧 Hidratación disponible</li>
+            <li>🕒 Acceso flexible según tu rutina</li>
+        </ul>
     </div>
     """, unsafe_allow_html=True)
+
