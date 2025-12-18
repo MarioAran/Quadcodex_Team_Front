@@ -28,7 +28,7 @@ MUSCLE_IMAGES = {
 
 DEFAULT_IMAGE = "images/AlgoFit2.png"
 
-API_URL = "https://quadcodex-team-back.onrender.com/update"
+API_URL = "http://127.0.0.1:5000/update"
 
 # Funcion de optener imagenes
 def get_muscle_image(muscles: list[str]) -> str:

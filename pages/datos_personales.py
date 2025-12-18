@@ -418,7 +418,7 @@ if enviar:
 
         # Llamadas a la API
         try:
-            resp = requests.post("https://quadcodex-team-back.onrender.com/recomendar", json=payload)
+            resp = requests.post("http://127.0.0.1:5000/recomendar", json=payload)
 
             if resp.status_code == 200:
                 st.session_state["recomendaciones"] = resp.json()
