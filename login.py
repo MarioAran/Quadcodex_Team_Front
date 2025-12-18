@@ -231,7 +231,7 @@ with cols[0]:
     <div class="text-card">
         <img src="https://www.dir.cat/api/media/file/Hyrox-boutique-1-900x480.webp" alt="Fuerza">
         <h3>Rutinas de Cardio</h3>
-        <p>Entrenamiento funcional de alta intensidad que combina fuerza, resistencia y carrera. Una experiencia desafiante para superar tus propios límites.</p>
+        <p>Entrenamiento de alta intensidad que combina intervalos de carrera en cinta con trabajo muscular funcional. Una experiencia completa y exigente para todo el cuerpo.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -241,7 +241,7 @@ with cols[1]:
     <div class="text-card">
         <img src="https://www.dir.cat/api/media/file/Bootcamp%20boutique-900x480.webp" alt="Cardio">
         <h3>Entrenamientos Fuerza</h3>
-        <p>Entrenamiento de alta intensidad que combina intervalos de carrera en cinta con trabajo muscular funcional. Una experiencia completa y exigente para todo el cuerpo.</p>
+        <p>Entrenamiento funcional de alta intensidad que combina fuerza. Una experiencia desafiante para superar tus propios límites.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -387,35 +387,39 @@ st.markdown("""
         <img src="https://www.dir.cat/api/media/file/DiRAvmadridw-900x480.webp" alt="DIR Av. Madrid">
         <h3>DIR AV. MADRID</h3>
         <p>C/ Av. de Madrid, 170, Sants-Montjuïc, 08028, Barcelona</p>
-        <a href="#">Detalles club</a>
     </div>
     <div class="card">
         <img src="https://www.dir.cat/api/media/file/dircampusw-900x480.webp" alt="DIR Campus">
         <h3>DIR CAMPUS</h3>
         <p>C/ Avinguda Dr. Marañón, 17, Les Corts, 08028, Barcelona</p>
-        <a href="#">Detalles club</a>
     </div>
     <div class="card">
         <img src="https://www.dir.cat/api/media/file/dirclaretw-900x480.webp" alt="DIR Castillejos">
         <h3>DIR CASTILLEJOS</h3>
         <p>C/ Castillejos, 388, 08025, Barcelona</p>
-        <a href="#">Detalles club</a>
     </div>
     <div class="card">
         <img src="https://www.dir.cat/api/media/file/dirclarisw-900x480.webp" alt="DIR Claret">
         <h3>DIR CLARET</h3>
         <p>C/ St. Antoni Maria Claret, 84-86, 08025, Barcelona</p>
-        <a href="#">Detalles club</a>
     </div>
 </div>
 """, unsafe_allow_html=True) 
+
+
+
+
+
+###3====EVENTOS 
+
+st.markdown('<div class="title-shadow">Proximos Eventos</div>', unsafe_allow_html=True)
+
 st.markdown("""
 <div class="card-container">
     <div class="card">
         <img src="https://public.dir.cat/api/media/file/banner-1080X19201w-1-1920x1080.webp" alt="DIR Av. Madrid">
         <h3>Dir AV. MADRID</h3>
         <p>C/ Av. de Madrid, 170, Sants-Montjuïc, 08028, Barcelona</p>
-        <a href="#">Detalles club</a>
     </div>
 </div>
 """, unsafe_allow_html=True)
