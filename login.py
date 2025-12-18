@@ -234,6 +234,7 @@ with b2:
     """, unsafe_allow_html=True)
 st.markdown('</div></div>', unsafe_allow_html=True)
 st.markdown('<div class="section-login">', unsafe_allow_html=True)
+st.markdown('<div class="title-shadow"><h1>    </h1></div>', unsafe_allow_html=True)
 
 # ================= TARJETAS =================
 cols = st.columns(4)
@@ -271,7 +272,7 @@ for i, card in enumerate(cards_data):
             {"<ul>" + "".join([f"<li>{li}</li>" for li in card.get("list", [])]) + "</ul>" if card.get("list") else ""}
         </div>
         """, unsafe_allow_html=True)
-
+st.markdown('<div class="title-shadow"><h1>    </h1></div>', unsafe_allow_html=True)
 # ================= PATROCINADOR =================
 st.markdown("""
 <style>
