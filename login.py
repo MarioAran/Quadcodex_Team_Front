@@ -240,7 +240,7 @@ with cols[1]:
     st.markdown("""
     <div class="text-card">
         <img src="https://www.dir.cat/api/media/file/Bootcamp%20boutique-900x480.webp" alt="Cardio">
-        <h3>🏃 Entrenamientos FUerza</h3>
+        <h3>Entrenamientos Fuerza</h3>
         <p>Entrenamiento de alta intensidad que combina intervalos de carrera en cinta con trabajo muscular funcional. Una experiencia completa y exigente para todo el cuerpo.</p>
     </div>
     """, unsafe_allow_html=True)
@@ -250,7 +250,7 @@ with cols[2]:
     st.markdown("""
     <div class="text-card">
         <img src="https://www.dir.cat/api/media/file/Glow%20Pilates-900x480.jpg" alt="Nutrición">
-        <h3>Últimes tendències en fitness</h3>
+        <h3>Ultimas tendencias en fitness</h3>
         <p>El fitness evoluciona constantemente, y en los clubs DiR encontrarás las actividades que marcan tendencia en Barcelona. HYROX, Reformer Pilates, Bootcamp, Boxeo y mucho más. Entrenamientos dinámicos, efectivos y guiados por instructores expertos para que descubras nuevas formas de superarte y mantener la motivación.</p>
     </div>
     """, unsafe_allow_html=True)
@@ -261,7 +261,7 @@ with cols[3]:
     st.markdown("""
     <div class="text-card">
         <img src="https://www.dir.cat/sites/default/files/2017-03/solarium-dir.jpg" alt="Bienestar">
-        <h3>☀️ Solárium & Relax</h3>
+        <h3>Solarium & Relax</h3>
         <p>Disfruta de nuestro solárium para relajarte y recuperar energía después de tus entrenamientos. 
         Un espacio diseñado para el descanso, mejorar tu bienestar y disfrutar de la luz natural de manera segura.</p>
         <ul style="text-align:left; margin-left:20px;">
