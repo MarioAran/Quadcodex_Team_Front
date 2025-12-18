@@ -34,6 +34,11 @@ header[data-testid="stHeader"] {
 </style>
 """, unsafe_allow_html=True)
 
+
+####test
+
+
+
 # ================= CSS =================
 st.markdown(f"""
 <style>
@@ -137,7 +142,7 @@ div.stButton > button:hover {{
 
 # ================= CONTENEDOR 1: LOGIN =================
 
-st.markdown('<div class="section-login">', unsafe_allow_html=True)
+
 st.markdown('<div class="login-box">', unsafe_allow_html=True)
 st.markdown('<div class="title-shadow">Welcome to AlgoFit</div>', unsafe_allow_html=True)
 
@@ -185,7 +190,7 @@ with b2:
     """, unsafe_allow_html=True)
 
 st.markdown('</div></div>', unsafe_allow_html=True)
-
+st.markdown('<div class="section-login">', unsafe_allow_html=True)
 # ================= CONTENEDOR 2: CARDS =================
 
 # CSS para tarjetas (puedes añadir más estilos como colores, íconos, etc.)
@@ -351,6 +356,7 @@ st.markdown("""
     margin-bottom: 15px;
 }
 .text-card h3 {
+    text-align: center;
     margin: 10px 0;
     color: #d91f26;
 }
