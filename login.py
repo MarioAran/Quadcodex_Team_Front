@@ -242,12 +242,12 @@ cards_data = [
     {
         "img": "https://www.dir.cat/api/media/file/Hyrox-boutique-1-900x480.webp",
         "title": "Rutinas de Cardio",
-        "text": "Entrenamiento de alta intensidad que combina intervalos de carrera en cinta con trabajo muscular funcional. Una experiencia completa y exigente para todo el cuerpo."
+        "text": "Entrenamiento de alta intensidad que combina intervalos de carrera en cinta con trabajo muscular funcional, ideal para mejorar tu resistencia cardiovascular y tonificar todo el cuerpo. Cada sesión está pensada para mantener la motivación, quemar calorías de manera efectiva y brindarte un impulso de energía que se nota fuera del gimnasio."
     },
     {
         "img": "https://www.dir.cat/api/media/file/Bootcamp%20boutique-900x480.webp",
         "title": "Entrenamientos Fuerza",
-        "text": "Entrenamiento funcional de alta intensidad que combina fuerza. Una experiencia desafiante para superar tus propios límites."
+        "text": "Entrenamiento funcional de alta intensidad que combina fuerza, resistencia y coordinación. Diseñado para ayudarte a superar tus propios límites y potenciar tu rendimiento físico, con ejercicios guiados por instructores expertos. Descubre una experiencia completa que fortalece tu cuerpo, mejora tu postura y aumenta tu energía en cada sesión."
     },
     {
         "img": "https://www.dir.cat/api/media/file/Glow%20Pilates-900x480.jpg",
@@ -258,7 +258,7 @@ cards_data = [
         "img": "https://pisojoven.es/wp-content/uploads/2024/01/vista-terraza.jpg",
         "title": "Solarium & Relax",
         "text": "Disfruta de nuestro solárium para relajarte y recuperar energía después de tus entrenamientos.",
-        "list": ["☀️ Espacios cómodos y seguros", "🧘 Zona de relax y lectura", "💧 Hidratación disponible", "🕒 Acceso flexible según tu rutina"]
+        "list": ["☀️ Espacios cómodos y seguros", "🧘 Zona de relax y lectura", "💧 Hidratación disponible"]
     }
 ]
 
