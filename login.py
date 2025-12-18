@@ -49,13 +49,7 @@ st.markdown(f"""
     align-items: center;
 }}
 
-.login-box {{
-    width: 420px;
-    padding: 35px;
-    background: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(6px);
-    border-radius: 18px;
-}}
+
 
 /* Inputs */
 label {{
@@ -279,3 +273,243 @@ with cols[3]:
     </div>
     """, unsafe_allow_html=True)
 
+#=====================
+
+# CSS para las tarjetas tipo directorio
+st.markdown("""
+<style>
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.card {
+    background-color: #0d1117;
+    color: #ffffff;
+    width: 250px;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.card h3 {
+    font-family: 'Arial Black', sans-serif;
+    margin: 10px 0;
+}
+
+.card p {
+    font-size: 14px;
+    margin: 5px 10px;
+}
+
+.card a {
+    display: block;
+    margin: 10px 0 15px 0;
+    color: #00aaff;
+    text-decoration: none;
+}
+
+.card a:hover {
+    text-decoration: underline;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# Contenido HTML con las tarjetas
+st.markdown("""
+<style>
+.card-container {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+.text-card {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.text-card img {
+    width: 150px;
+    margin-bottom: 15px;
+}
+.text-card h3 {
+    margin: 10px 0;
+    color: #d91f26;
+}
+.text-card p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}
+.text-card a {
+    color: #d91f26;
+    text-decoration: none;
+    font-weight: bold;
+}
+.text-card a:hover {
+    text-decoration: underline;
+}
+</style>
+
+<div class="card-container">
+    <div class="text-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/DiR_logo.png" alt="DIR Logo">
+        <h3>Patrocinador Oficial</h3>
+        <p>Estamos orgullosos de contar con <strong>DiR</strong> como nuestro patrocinador oficial. Gracias a su colaboración, podemos ofrecer experiencias únicas y mantener nuestros estándares de calidad en cada actividad.</p>
+        <p>C/ Av. de Madrid, 170, Sants-Montjuïc, 08028, Barcelona</p>
+        <a href="https://www.dir.cat/es">Detalles del club</a>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+ 
+
+st.markdown("""
+<div class="card-container">
+    <div class="card">
+        <img src="https://www.dir.cat/api/media/file/DiRAvmadridw-900x480.webp" alt="DIR Av. Madrid">
+        <h3>DIR AV. MADRID</h3>
+        <p>C/ Av. de Madrid, 170, Sants-Montjuïc, 08028, Barcelona</p>
+        <a href="#">Detalles club</a>
+    </div>
+    <div class="card">
+        <img src="https://www.dir.cat/api/media/file/dircampusw-900x480.webp" alt="DIR Campus">
+        <h3>DIR CAMPUS</h3>
+        <p>C/ Avinguda Dr. Marañón, 17, Les Corts, 08028, Barcelona</p>
+        <a href="#">Detalles club</a>
+    </div>
+    <div class="card">
+        <img src="https://www.dir.cat/api/media/file/dirclaretw-900x480.webp" alt="DIR Castillejos">
+        <h3>DIR CASTILLEJOS</h3>
+        <p>C/ Castillejos, 388, 08025, Barcelona</p>
+        <a href="#">Detalles club</a>
+    </div>
+    <div class="card">
+        <img src="https://www.dir.cat/api/media/file/dirclarisw-900x480.webp" alt="DIR Claret">
+        <h3>DIR CLARET</h3>
+        <p>C/ St. Antoni Maria Claret, 84-86, 08025, Barcelona</p>
+        <a href="#">Detalles club</a>
+    </div>
+</div>
+""", unsafe_allow_html=True) 
+st.markdown("""
+<div class="card-container">
+    <div class="card">
+        <img src="https://public.dir.cat/api/media/file/banner-1080X19201w-1-1920x1080.webp" alt="DIR Av. Madrid">
+        <h3>Dir AV. MADRID</h3>
+        <p>C/ Av. de Madrid, 170, Sants-Montjuïc, 08028, Barcelona</p>
+        <a href="#">Detalles club</a>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+
+####FOOTER=========
+
+footer = """
+<style>
+.footer {
+    background-color: #f2f2f2;
+    padding: 30px 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+}
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.footer .section {
+    flex: 1 1 200px;
+    margin: 10px;
+}
+.footer h4 {
+    margin-bottom: 10px;
+}
+.footer ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+.footer ul li {
+    margin-bottom: 5px;
+}
+.footer ul li a {
+    color: #333;
+    text-decoration: none;
+}
+.footer ul li a:hover {
+    text-decoration: underline;
+}
+.footer-bottom {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+}
+</style>
+
+<div class="footer">
+    <div class="footer-container">
+        <div class="section">
+            <h4>Socios</h4>
+            <ul>
+                <li><a href="#">Conectarse</a></li>
+                <li><a href="#">Club Prestige</a></li>
+                <li><a href="#">Regala Algo Fit</a></li>
+                <li><a href="#">Ventajas</a></li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>Empresa</h4>
+            <ul>
+                <li><a href="#">Franquicias</a></li>
+                <li><a href="#">Inversiones</a></li>
+                <li><a href="#">Algo Fit para empresas</a></li>
+                <li><a href="#">Patrocinadores</a></li>
+                <li><a href="#">Fundación Algo Fit</a></li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>Información</h4>
+            <ul>
+                <li><a href="#">Sobre Algo Fit</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="#">Trabaja en Algo Fit</a></li>
+                <li><a href="#">Comunicación</a></li>
+                <li><a href="#">Revista</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Singles & Friends</a></li>
+                <li><a href="#">Sala de prensa</a></li>
+                <li><a href="#">Comunidad</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        Gestora Clubs AlgoFit, Barcelona 2025 © | <a href="#">Aviso Legal</a> y <a href="#">Política de privacidad</a>
+    </div>
+</div>
+"""
+
+st.markdown(footer, unsafe_allow_html=True)
