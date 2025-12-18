@@ -4,7 +4,7 @@ import threading
 import requests
 from colores import Colores_class
 
-# ================= FUNCIONES =================
+# Funcion para mantener el Render activo
 def keep_server_alive():
     while True:
         try:
@@ -13,11 +13,11 @@ def keep_server_alive():
             print("Error keeping server alive:", e)
         time.sleep(58)
 
-# ================= CONFIG =================
+# Config
 st.set_page_config(page_title="AlgoFit V0.1-Login", layout="wide")
 colores = Colores_class()
 
-# ================= OCULTAR UI STREAMLIT =================
+# Ocultar barra de arriba
 st.markdown("""
 <style>
 [data-testid="stSidebar"],
@@ -34,10 +34,9 @@ header[data-testid="stHeader"] {
 </style>
 """, unsafe_allow_html=True)
 
-# ================= CSS GENERAL =================
+# Estilo General
 st.markdown(f"""
 <style>
-/* ===== LOGIN ===== */
 .section-login {{
     min-height: 100vh;
     background-image: url("https://public.dir.cat/api/media/file/web-1080x1920-dec-1920x1080.gif");
@@ -148,7 +147,6 @@ div.stButton > button:hover {{
     margin-bottom: 5px;
 }}
 
-/* ===== FOOTER ===== */
 .footer {{
     background-color: #f2f2f2;
     padding: 30px 20px;
@@ -194,7 +192,7 @@ div.stButton > button:hover {{
 </style>
 """, unsafe_allow_html=True)
 
-# ================= LOGIN =================
+# Login
 st.markdown('<div class="login-box">', unsafe_allow_html=True)
 st.markdown('<div class="title-shadow">Welcome to AlgoFit</div>', unsafe_allow_html=True)
 b1, b2, b3 = st.columns([1.7,6.5,1.7])
@@ -203,27 +201,29 @@ with b2:
     with t2:
         user = st.text_input("User")
         pwd = st.text_input("Password", type="password")
-        if st.button("Login"):
-            try:
-                payload = {"dni": user}
-                resp = requests.post(
-                    "https://quadcodex-team-back.onrender.com/login",
-                    json=payload,
-                    timeout=10
-                )
-                if resp.status_code == 200:
-                    data = resp.json()
-                    st.session_state["user"] = data["usuario"]
-                    st.session_state["id_usuario"] = data["usuario"]["id_user"]
-                    if "server_pinger_started" not in st.session_state:
-                        thread = threading.Thread(target=keep_server_alive, daemon=True)
-                        thread.start()
-                        st.session_state["server_pinger_started"] = True
-                        st.switch_page("pages/menu.py")
-                else:
-                    st.markdown('<div class="custom-error">❌ Incorrect user, please try again</div>', unsafe_allow_html=True)
-            except Exception as e:
-                st.error(f"Could not connect to API: {e}")
+        b4, b5, b6 = st.columns([5.6,6.5,1.7])
+        with b5:
+            if st.button("Login"):
+                try:
+                    payload = {"dni": user}
+                    resp = requests.post(
+                        "https://quadcodex-team-back.onrender.com/login",
+                        json=payload,
+                        timeout=10
+                    )
+                    if resp.status_code == 200:
+                        data = resp.json()
+                        st.session_state["user"] = data["usuario"]
+                        st.session_state["id_usuario"] = data["usuario"]["id_user"]
+                        if "server_pinger_started" not in st.session_state:
+                            thread = threading.Thread(target=keep_server_alive, daemon=True)
+                            thread.start()
+                            st.session_state["server_pinger_started"] = True
+                            st.switch_page("pages/menu.py")
+                    else:
+                        st.markdown('<div class="custom-error">❌ Incorrect user, please try again</div>', unsafe_allow_html=True)
+                except Exception as e:
+                    st.error(f"Could not connect to API: {e}")
 
     st.markdown("""
     <div class="social-icons">
@@ -236,29 +236,29 @@ st.markdown('</div></div>', unsafe_allow_html=True)
 st.markdown('<div class="section-login">', unsafe_allow_html=True)
 st.markdown('<div class="title-shadow"><h1>    </h1></div>', unsafe_allow_html=True)
 
-# ================= TARJETAS =================
+# Tarjetas
 cols = st.columns([0.2,3,3,3,3,0.2])
 cards_data = [
     {
         "img": "https://www.dir.cat/api/media/file/Hyrox-boutique-1-900x480.webp",
-        "title": "Rutinas de Cardio",
-        "text": "Entrenamiento de alta intensidad que combina intervalos de carrera en cinta con trabajo muscular funcional, ideal para mejorar tu resistencia cardiovascular y tonificar todo el cuerpo. Cada sesión está pensada para mantener la motivación, quemar calorías de manera efectiva y brindarte un impulso de energía que se nota fuera del gimnasio."
+        "title": "Cardio Routines",
+        "text": "High-intensity training that combines treadmill intervals with functional muscle work, ideal for improving your cardiovascular endurance and toning your entire body. Each session is designed to keep you motivated, burn calories effectively, and give you an energy boost that you'll feel outside the gym."
     },
     {
         "img": "https://www.dir.cat/api/media/file/Bootcamp%20boutique-900x480.webp",
-        "title": "Entrenamientos Fuerza",
-        "text": "Entrenamiento funcional de alta intensidad que combina fuerza, resistencia y coordinación. Diseñado para ayudarte a superar tus propios límites y potenciar tu rendimiento físico, con ejercicios guiados por instructores expertos. Descubre una experiencia completa que fortalece tu cuerpo, mejora tu postura y aumenta tu energía en cada sesión."
+        "title": "Strength Training",
+        "text": "High-intensity functional training that combines strength, endurance, and coordination. Designed to help you push your limits and boost your physical performance, with exercises guided by expert instructors. Discover a complete experience that strengthens your body, improves your posture, and increases your energy in every session."
     },
     {
         "img": "https://www.dir.cat/api/media/file/Glow%20Pilates-900x480.jpg",
-        "title": "Últimas tendencias en fitness",
-        "text": "El fitness evoluciona constantemente, y en los clubs DiR encontrarás las actividades que marcan tendencia en Barcelona, HYROX, Reformer Pilates, Bootcamp, Boxeo y mucho más. Entrenamientos dinámicos, efectivos y guiados por instructores expertos."
+        "title": "Latest trends in fitness",
+        "text": "Fitness is constantly evolving, and at DiR clubs you'll find the activities that are setting trends in Barcelona, including HYROX, Reformer Pilates, Bootcamp, Boxing, and much more. Dynamic, effective workouts led by expert instructors."
     },
     {
         "img": "https://pisojoven.es/wp-content/uploads/2024/01/vista-terraza.jpg",
         "title": "Solarium & Relax",
-        "text": "Disfruta de nuestro solárium para relajarte y recuperar energía después de tus entrenamientos.",
-        "list": ["☀️ Espacios cómodos y seguros", "🧘 Zona de relax y lectura", "💧 Hidratación disponible"]
+        "text": "Enjoy our solarium to relax and recharge your batteries after your workouts.",
+        "list": ["☀️ Comfortable and safe spaces", "🧘 Relaxation and reading area", "💧 Hydration available"]
     }
 ]
 
@@ -273,7 +273,8 @@ for i, card in enumerate(cards_data):
         </div>
         """, unsafe_allow_html=True)
 st.markdown('<div class="title-shadow"><h1>    </h1></div>', unsafe_allow_html=True)
-# ================= PATROCINADOR =================
+
+# Seccion de "Patrocinador"
 st.markdown("""
 <style>
 .text-card-partner {
@@ -323,17 +324,17 @@ st.markdown("""
 <div class="card-container">
     <div class="text-card-partner">
         <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/DiR_logo.png" alt="DIR Logo">
-        <h3>Patrocinador Oficial</h3>
-        <p>Estamos orgullosos de contar con <strong>DiR</strong> como nuestro patrocinador oficial. Gracias a su colaboración, podemos ofrecer experiencias únicas y mantener nuestros estándares de calidad en cada actividad.</p>
+        <h3>Official Sponsor</h3>
+        <p>We are proud to have <strong>DiR</strong> as our official sponsor. Thanks to their collaboration, we can offer unique experiences and maintain our quality standards in every activity..</p>
         <p>C/ Av. de Madrid, 170, Sants-Montjuïc, 08028, Barcelona</p>
-        <a href="https://www.dir.cat/es">Detalles del club</a>
+        <a href="https://www.dir.cat/es">Club details</a>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
 
 
-# ================= TARJETAS DIR =================
+# Tarjetas del DIR
 dir_cards = [
     {"img": "https://www.dir.cat/api/media/file/DiRAvmadridw-900x480.webp", "title": "DIR AV. MADRID", "text": "C/ Av. de Madrid, 170, Sants-Montjuïc, 08028, Barcelona"},
     {"img": "https://www.dir.cat/api/media/file/dircampusw-900x480.webp", "title": "DIR CAMPUS", "text": "C/ Avinguda Dr. Marañón, 17, Les Corts, 08028, Barcelona"},
@@ -342,7 +343,6 @@ dir_cards = [
 ]
 
 st.markdown('<div class="card-container">', unsafe_allow_html=True)
-# Crear 4 columnas (una por cada tarjeta)
 
 cols = st.columns([0.2,3,3,3,3,0.2])
 
@@ -357,8 +357,8 @@ for i, c in enumerate(dir_cards):
         </div>
         """, unsafe_allow_html=True)
 
-# ================= EVENTOS =================
-st.markdown('<div class="title-shadow">Próximos Eventos</div>', unsafe_allow_html=True)
+# Eventos
+st.markdown('<div class="title-shadow">Upcoming Events</div>', unsafe_allow_html=True)
 st.markdown("""
 <div class="card-container">
     <div class="card">
@@ -369,47 +369,47 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ================= FOOTER =================
+# Footer
 footer = """
 <div class="footer">
     <div class="footer-container">
         <div class="section">
-            <h4>Socios</h4>
+            <h4>Partners</h4>
             <ul>
-                <li><a href="#">Conectarse</a></li>
-                <li><a href="#">Club Prestige</a></li>
-                <li><a href="#">Regala Algo Fit</a></li>
-                <li><a href="#">Ventajas</a></li>
+                <li><a href="#">Log in</a></li>
+                <li><a href="#">Prestige Club</a></li>
+                <li><a href="#">Give AlgoFit as a gift</a></li>
+                <li><a href="#">Advantages</a></li>
             </ul>
         </div>
         <div class="section">
-            <h4>Empresa</h4>
+            <h4>Company</h4>
             <ul>
-                <li><a href="#">Franquicias</a></li>
-                <li><a href="#">Inversiones</a></li>
-                <li><a href="#">Algo Fit para empresas</a></li>
-                <li><a href="#">Patrocinadores</a></li>
-                <li><a href="#">Fundación Algo Fit</a></li>
+                <li><a href="#">Franchises</a></li>
+                <li><a href="#">Investments</a></li>
+                <li><a href="#">AlgoFit for businesses</a></li>
+                <li><a href="#">Sponsors</a></li>
+                <li><a href="#">AlgoFit Foundation</a></li>
             </ul>
         </div>
         <div class="section">
-            <h4>Información</h4>
+            <h4>Information</h4>
             <ul>
-                <li><a href="#">Sobre Algo Fit</a></li>
-                <li><a href="#">Contacto</a></li>
+                <li><a href="#">About AlgoFit</a></li>
+                <li><a href="#">Contact</a></li>
                 <li><a href="#">FAQs</a></li>
-                <li><a href="#">Trabaja en Algo Fit</a></li>
-                <li><a href="#">Comunicación</a></li>
-                <li><a href="#">Revista</a></li>
+                <li><a href="#">Work at AlgoFit</a></li>
+                <li><a href="#">Communication</a></li>
+                <li><a href="#">Magazine</a></li>
                 <li><a href="#">Blog</a></li>
                 <li><a href="#">Singles & Friends</a></li>
-                <li><a href="#">Sala de prensa</a></li>
-                <li><a href="#">Comunidad</a></li>
+                <li><a href="#">Press room</a></li>
+                <li><a href="#">Community</a></li>
             </ul>
         </div>
     </div>
     <div class="footer-bottom">
-        Gestora Clubs AlgoFit, Barcelona 2025 © | <a href="#">Aviso Legal</a> y <a href="#">Política de privacidad</a>
+        Gestora Clubs AlgoFit, Barcelona 2025 © | <a href="#">Legal Notice</a> y <a href="#">Privacy Policy</a>
     </div>
 </div>
 """
